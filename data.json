@@ -1,0 +1,24 @@
+// JSON Document
+
+
+[{
+"Name" : "Safenet 1",
+"Description" : "it is my product",
+"ID" : "1"
+},
+{
+"Name" : "Safenet 2",
+"Description" : "it is my product",
+"ID" : "2"
+},
+{
+"Name" : "Safenet 3",
+"Description" : "it is my product",
+"ID" : "72"
+},
+{
+"Name" : "Safenet 4",
+"Description" : "it is my product",
+"ID" : "1212"
+}
+]

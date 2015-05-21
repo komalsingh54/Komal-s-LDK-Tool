@@ -1,0 +1,950 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="Komal Singh">
+    <link rel="icon" href="stylesheets/favicon.ico">
+    <title>Sentinel EMS</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="stylesheets/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="stylesheets/css/dashboard.css" rel="stylesheet">
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="scripts/ie-emulation-modes-warning.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="scripts/jquery-latest.min.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    
+     <link href="stylesheets/css/animation.css" rel="stylesheet" type="text/css">
+  <link href="stylesheets/css/glyphicons.css" rel="stylesheet" type="text/css">
+   <script src="stylesheets/css/angular-animate.js"></script> 
+    <style>
+	
+#cssmenu,
+#cssmenu ul,
+#cssmenu ul li,
+#cssmenu ul li a {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  list-style: none;
+  line-height: 1;
+  display: block;
+  position: relative;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+#cssmenu {
+  width: 100%;
+ 
+  color: #ffffff;
+}
+#cssmenu ul ul {
+  display: none;
+}
+#cssmenu > ul > li.active > ul {
+  display: block;
+}
+.align-right {
+  float: right;
+}
+#cssmenu > ul > li > a {
+  padding: 16px 22px;
+  cursor: pointer;
+  z-index: 2;
+  font-size: 16px;
+  text-decoration: none;
+  color: #ffffff;
+  background: #3ab4a6;
+  -webkit-transition: color .2s ease;
+  -o-transition: color .2s ease;
+  transition: color .2s ease;
+}
+#cssmenu > ul > li > a:hover {
+  color: #d8f3f0;
+}
+#cssmenu ul > li.has-sub > a:after {
+  position: absolute;
+  right: 26px;
+  top: 19px;
+  z-index: 5;
+  display: block;
+  height: 10px;
+  width: 2px;
+  background: #ffffff;
+  content: "";
+  -webkit-transition: all 0.1s ease-out;
+  -moz-transition: all 0.1s ease-out;
+  -ms-transition: all 0.1s ease-out;
+  -o-transition: all 0.1s ease-out;
+  transition: all 0.1s ease-out;
+}
+#cssmenu ul > li.has-sub > a:before {
+  position: absolute;
+  right: 22px;
+  top: 23px;
+  display: block;
+  width: 10px;
+  height: 2px;
+  background: #ffffff;
+  content: "";
+  -webkit-transition: all 0.1s ease-out;
+  -moz-transition: all 0.1s ease-out;
+  -ms-transition: all 0.1s ease-out;
+  -o-transition: all 0.1s ease-out;
+  transition: all 0.1s ease-out;
+}
+#cssmenu ul > li.has-sub.open > a:after,
+#cssmenu ul > li.has-sub.open > a:before {
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+#cssmenu ul ul li a {
+  padding: 14px 22px;
+  cursor: pointer;
+  z-index: 2;
+  font-size: 14px;
+  text-decoration: none;
+  color: #dddddd;
+  background: #49505a;
+  -webkit-transition: color .2s ease;
+  -o-transition: color .2s ease;
+  transition: color .2s ease;
+}
+#cssmenu ul ul ul li a {
+  padding-left: 32px;
+}
+#cssmenu ul ul li a:hover {
+  color: #ffffff;
+}
+#cssmenu ul ul > li.has-sub > a:after {
+  top: 16px;
+  right: 26px;
+  background: #dddddd;
+}
+#cssmenu ul ul > li.has-sub > a:before {
+  top: 20px;
+  background: #dddddd;
+}
+</style>
+<script>
+(function($){
+$(document).ready(function(){
+
+$('#cssmenu li.active').addClass('open').children('ul').show();
+	$('#cssmenu li.has-sub>a').on('click', function(){
+		$(this).removeAttr('href');
+		var element = $(this).parent('li');
+		if (element.hasClass('open')) {
+			element.removeClass('open');
+			element.find('li').removeClass('open');
+			element.find('ul').slideUp(200);
+		}
+		else {
+			element.addClass('open');
+			element.children('ul').slideDown(200);
+			element.siblings('li').children('ul').slideUp(200);
+			element.siblings('li').removeClass('open');
+			element.siblings('li').find('li').removeClass('open');
+			element.siblings('li').find('ul').slideUp(200);
+		}
+	});
+
+});
+})(jQuery);
+
+</script>
+  </head>
+
+  <body ng-app="product">
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Sentinel EMS</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="Product.html">Products</a></li>
+           
+            <li><a href="Features.html">Features</a></li>
+            <li><a href="Features.html">Entitlement</a></li>
+          </ul>
+          <form class="navbar-form navbar-right">
+            <input type="text" class="form-control" placeholder="Search...">
+          </form>
+        </div>
+      </div>
+    </nav>
+
+
+ <div  style="background-image:url(stylesheets/default-tier4.png);height:75px;width:100%;background-attachment: fixed;background-repeat: no-repeat; background-size:contain;" > <h3 style="margin-top:-1px;color:#676767;margin-left:20%"><br>Products</h3></div>
+
+
+    <div class="container-fluid">
+      
+        <div class="col-sm-3 col-md-2 sidebar">
+          <div id='cssmenu'>
+<ul>
+   <li><a href='#'>Home</a></li>
+   <li class='active has-sub'><a href='#'>Catalogs</a>
+      <ul>
+         <li><a href='Product.html'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Product</a>
+           
+         </li>
+         <li><a href='Features.html'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Features</a>
+            
+         </li>
+      </ul>
+   </li>
+   <li class=' has-sub'><a href='#'>Entitlement</a>
+      <ul>
+         <li><a href='#'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Entitlement</a>
+           
+         </li>
+         <li><a href='#'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Check in C2V</a>
+            
+         </li>
+         <li><a href='#'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Check in Key</a>
+            
+         </li>
+         <li><a href='#'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Recycle</a>
+            
+         </li>
+      </ul>
+   </li>
+   <li class=' has-sub'><a href='#'>Developers</a>
+      <ul>
+         <li><a href='Product.html'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RUS Branding</a>
+           
+         </li>
+         <li><a href='Features.html'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RTE Installer</a>
+            
+         </li>
+         <li><a href='Features.html'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bundle Provisonal Products</a>
+            
+         </li>
+      </ul>
+   </li>
+   <li><a href='#'>About</a></li>
+   <li><a href='#'>Contact</a></li>
+   <li><a href='#'>Help</a></li>
+</ul>
+	</div>
+        </div>
+       
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
+         <div>
+         <div class="col-sm-6"> 
+          <h4 class="sub-header">Existing Product</h4>
+          </div>
+          <div>
+          
+     <!------- New Product Button ---->
+          <div><button class="btn " data-toggle="modal" data-target="#myModal">+Add New Product</button>
+           
+    
+           
+           
+           <!--------====---===-----===--POP UP--*-*-*	-*-*-*-*-*_*__>
+           
+           
+           
+           
+           <!-- Modal -->
+   <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+     <!-- Modal content-->
+      <div class="modal-content">
+      <!-- MODAL HEADER BEG -->
+       <div class="modal-header" style="background-color:#919191;color:#FFF">
+       <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">New Product</h4>
+       </div>  <!-- modal header end -->
+       <!-- Mymodal body beg -->
+        <div class="modal-body" >
+<div class="row">
+
+ <div class="col-sm-6"> 
+  
+<label> Define Products </label>
+<form class="form-horizontal ng-pristine ng-valid">
+ <div class="form-group text-left"><br>
+  <label for="Base Product" class="col-sm-4">Base Product:</label>
+  <div class="col-sm-6">
+  <input placeholder="Base Product" class="form-control" style="height:25px;width:145px" type="text">
+   </div>
+   </div>
+   
+  
+  <div class="form-group text-left">
+  <label for="ID" class="col-sm-4">Product ID:</label>
+  <div class="col-sm-4">
+  <input style="height:25px;width:145px" placeholder="Product ID" class="form-control" type="text">
+  </div>
+ <div class="col-sm-4"> 
+  <button type="button" class="btn btn-default btn-sm">Available?</button>
+ </div>
+ 
+ </div> 
+<!-- container div close -->
+ </form>
+
+</div>
+    
+
+<div class="col-sm-6">
+ <div class="form-group col-sm-6 text-left" style="float:left">
+   <label class="control-label" for="name">Description:</label>
+    <div>
+   <textarea placeholder="Description" style="width: 210px; height: 45px;" class="form-control"></textarea>
+   </div>
+   </div>
+  <div class="col-sm-12 text-left" style="float:left"> <label>Attributes Status:</label><br>
+<label>Locking Type</label> &nbsp;
+<select>
+  <option value="HL">HL</option>
+  <option value="SL">SL</option>
+  <option value="HL or SL">HL or SL</option>
+</select>
+ 
+  </div>
+  </div>
+</div>
+<div class="line-separator"></div>
+
+<div class="row" style="border-bottom:thick grey">
+
+
+ 
+<div class="col-lg-12" style="margin-top:10px;">
+<div class="container">
+ <div class="col-sm-11">
+
+<div class="container row col-sm-10">
+<h4>Memory: <input type="checkbox" ng-model="checked" aria-label="Toggle ngHide"></h4><br>
+<div>
+  
+  <div class="" ng-show="checked">
+    <span></span>     
+    <div> <label> Memory Type: &nbsp;&nbsp;</label>
+    <select>
+        <option> Read only memory </option>
+        <option>Read/Write memory</option>
+        </select>&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="checkbox" name="t1"> <label> Hex address </label>
+    </div>
+<div class="col-md-9 table-responsive text-left">
+<br>
+        <table class="table table-striped table-condensed">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th> Name </th>
+                <th> Description </th>
+                <th> From </th>
+                <th> To </th>
+                <th> Length </th>
+                <th> Text </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>xyzxyz</td>
+            <td>xyzxyz</td>
+            <td>xyzxyz</td>
+            <td>xyzxyz</td>
+            <td>xyzxyz</td>
+            <td>xyzxyz</td>
+            <td>xyzxyz</td>
+            </tr>
+            </tbody>
+        </table>
+       </div>
+        <div class="col-md-3 table-responsive">
+                <div style="margin:5px;"> 
+                <button class="btn btn-default btn-sm" data-toggle="modal" data-target="#new_mem">New&nbsp;&nbsp;&nbsp;</button> 
+           <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#mem_edit">Edit  &nbsp;  </button>
+            </div>
+                    <div style="margin:5px;"> 
+                       <button class="btn btn-sm btn-default">Delete </button>
+                       <button class="btn btn-sm btn-default">Save  </button>
+                    </div>
+                <div  style="margin:5px;">
+                <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#mem_load">Load  &nbsp;   </button>
+                <button class="btn btn-sm btn-default">Undo    </button>
+                </div>
+                <div><button class="btn btn-sm btn-default">Map    </button></div>
+                
+		</div>
+  </div>
+</div>
+<div>
+
+  <div ng-hide="checked">
+    <span></span> <table  ng-controller="myTable_controller" class="table table-striped table-bordered table-hover table-condensed">
+         <thead>
+         <tr>
+             <th>ID</th>
+             <th>Feature Name </th>
+             <th>Feature Description </th>
+
+         </tr>
+         </thead>
+         <tbody>
+         <tr ng-repeat="feature in product" >
+             <td>{{ feature.ID }} </td>
+             <td> {{ feature.Name }}  </td>
+             <td>  {{feature.Description}} &nbsp;  <button  class="btn btn-xs  btn-default" data-toggle="modal" data-target="#modalId">Define
+             </button></td>
+         </tr>   </tbody>
+     </table>
+
+  </div>
+</div>
+</div>
+
+ </div>
+</div>
+</div> 
+</div>
+
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+
+
+
+<!-- for define License -->
+<!--     define model whose name is id= modalId-->
+ <div class="modal fade" id="modalId" role="dialog">
+    <div class="modal-dialog modal-lg">
+    
+      <!-- Modal content-->
+      <div class="modal-content text-left">
+        <div class="modal-header" style="background-color:#919191;color:#FFF">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title text-left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Define License Terms</h4>
+        </div>
+        <div class="modal-body">
+          <!-- define each Feature -->
+          <div class="row"> 
+          		
+                <div class="col-sm-14" >
+                		<div class="col-sm-14"  >
+                        <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;License Terms </label>
+                		
+                        <div class="col-sm-14" style="border:#D3D3D3">
+                        <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;License Type: </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <select>
+ 						 <option value="Perpectual">Perpectual</option>
+ 						 <option value="Executions">Executions</option>
+  						<option value="Expiration Date">Expiration Date</option>
+                        <option value="Time Period">Time Period</option>
+                        <option value="Specify At The Order Time">Specify At The Order Time</option>
+						</select>
+                		
+                        
+                   </div>     
+                 </div>
+               <div ng-init="mySwitch=false" >
+                	<div class="col-sm-6"><br>
+                	<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  Concurrency </label><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label> <input type="checkbox" ng-model="mySwitch" class="ng-valid ng-dirty ng-valid-parse ng-touched"> Enable Concurrency </label><br>
+
+<form class="ng-pristine ng-valid">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="checkbox" name="con1" ng-disabled="!mySwitch" disabled="disabled">
+
+<input type="number" name="count" ng-disabled="!mySwitch" disabled="disabled">Concurrent Instances<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="checkbox" name="con2" ng-disabled="!mySwitch" disabled="disabled">Unlimited Concurrent Instances<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="checkbox" name="con3" ng-disabled="!mySwitch" disabled="disabled">specify at the order time<br>
+</form>
+    </div>
+  <div class="col-sm-4"><br>
+  <div class="col-sm-14">
+ <label ng-disabled="!mySwitch" disabled="disabled">count each </label>
+ <select ng-disabled="!mySwitch" disabled="disabled">
+ 						 <option value="Station" ng-disabled="!mySwitch" disabled="disabled">Station</option>
+ 						 <option value="Login" ng-disabled="!mySwitch" disabled="disabled">Login</option>
+  						<option value="Process" ng-disabled="!mySwitch" disabled="disabled">Process</option>
+  </select>
+  <label>as an instance </label> </div>
+  </div>
+</div>
+               
+          </div>
+         
+          </div>
+           <div class="col-sm-14" ><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           <label> Accessibility </label></br>
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           <input type="checkbox" name="remote desktop">&nbsp;Remote Desktop&nbsp;&nbsp;
+           <input type="checkbox" name="Network">&nbsp;Network &nbsp;&nbsp;
+           <input type="checkbox" name="Virtual machine">&nbsp;Virtual  Machine &nbsp;&nbsp;
+        </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button></div>
+          </div>
+    </div>
+           
+           
+           
+           <!--------====---===-----===--POP UP closed --*-*-*-*-*-*-*-*_---->
+
+           
+           </div>
+          </div>
+          
+          
+          <!------- New Button Closed--->
+          
+          </div>
+          </div>
+          
+          
+          
+          
+          
+          <div class="table-responsive col-sm-8 text-left">
+            <table frame="box" bordercolor="#DFCBCB" class="table table-striped table-condensed">
+              <thead>
+                <tr>
+                  <th data-align="left">Product ID</th>
+                  <th data-align="left">Product Name</th>
+                  <th data-align="left">Ref ID</th>
+                  <th data-align="left">Status</th>
+                  <th data-align="left">Type</th>
+                  <th data-align="left">Actions</th>
+                </tr>
+              </thead>
+              <tbody class="text-left">
+                <tr>
+                  <td>1,001</td>
+                  <td>Lorem</td>
+                  <td>ipsum</td>
+                  <td>dolor</td>
+                  <td>sit</td>
+                  <td><select>
+                  <option>Edit</option>
+                  <option>Activate</option>
+                  <option>Deactivate</option>
+                  <option>Delete</option>
+                  </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>1,002</td>
+                  <td>amet</td>
+                  <td>consectetur</td>
+                  <td>adipiscing</td>
+                  <td>elit</td>
+                  <td><select>
+                  <option>Edit</option>
+                  <option>Activate</option>
+                  <option>Deactivate</option>
+                  <option>Delete</option>
+                  </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>1,003</td>
+                  <td>Integer</td>
+                  <td>nec</td>
+                  <td>odio</td>
+                  <td>Praesent</td>
+                  <td><select>
+                  <option>Edit</option>
+                  <option>Activate</option>
+                  <option>Deactivate</option>
+                  <option>Delete</option>
+                  </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>1,003</td>
+                  <td>libero</td>
+                  <td>Sed</td>
+                  <td>cursus</td>
+                  <td>ante</td>
+                  <td><select>
+                  <option>Edit</option>
+                  <option>Activate</option>
+                  <option>Deactivate</option>
+                  <option>Delete</option>
+                  </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>1,009</td>
+                  <td>augue</td>
+                  <td>semper</td>
+                  <td>porta</td>
+                  <td>Mauris</td>
+                  <td><select>
+                  <option>Edit</option>
+                  <option>Activate</option>
+                  <option>Deactivate</option>
+                  <option>Delete</option>
+                  </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>1,010</td>
+                  <td>massa</td>
+                  <td>Vestibulum</td>
+                  <td>lacinia</td>
+                  <td>arcu</td>
+                  <td><select>
+                  <option>Edit</option>
+                  <option>Activate</option>
+                  <option>Deactivate</option>
+                  <option>Delete</option>
+                  </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>1,011</td>
+                  <td>eget</td>
+                  <td>nulla</td>
+                  <td>Class</td>
+                  <td>aptent</td>
+                  <td><select>
+                  <option>Edit</option>
+                  <option>Activate</option>
+                  <option>Deactivate</option>
+                  <option>Delete</option>
+                  </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>1,012</td>
+                  <td>taciti</td>
+                  <td>sociosqu</td>
+                  <td>ad</td>
+                  <td>litora</td>
+                  <td><select>
+                  <option>Edit</option>
+                  <option>Activate</option>
+                  <option>Deactivate</option>
+                  <option>Delete</option>
+                  </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>1,013</td>
+                  <td>torquent</td>
+                  <td>per</td>
+                  <td>conubia</td>
+                  <td>nostra</td>
+                  <td><select>
+                  <option>Edit</option>
+                  <option>Activate</option>
+                  <option>Deactivate</option>
+                  <option>Delete</option>
+                  </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>1,014</td>
+                  <td>per</td>
+                  <td>inceptos</td>
+                  <td>himenaeos</td>
+                  <td>Curabitur</td>
+                  <td><select>
+                  <option>Edit</option>
+                  <option>Activate</option>
+                  <option>Deactivate</option>
+                  <option>Delete</option>
+                  </select>
+                  </td>
+                </tr>
+             
+              </tbody>
+            </table>
+            <!-- new model -->
+            
+            
+           <div class="modal fade" id="new_mem" role="dialog">
+    <div class="modal-dialog ">
+      <div class="modal-content">
+        <div class="modal-header" style="background-color:#919191;color:#FFFFFF">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Define New Memory Segment </h4>
+        </div>
+        <div class="modal-body">
+		<form class="form-horizontal">
+         
+ <div class="form-group text-left">
+ <label  class="col-sm-2" control-label">  Name:</label>
+ <div class="col-sm-4">
+ <input type="text" style="height:25px" placeholder="Name" class="form-control">
+ </div>
+ </div>
+
+<div class="form-group text-left">
+<label for="name" class="col-sm-2" ">Description:</label>
+<div class="col-sm-4">
+<textarea  class="form-control" placeholder="Description" style="height:35px;" ></textarea>
+</div>
+ </div>
+
+ <div class="form-group text-left">
+<label   class="col-sm-2" control-label">Offset:</label>
+<div class="col-sm-4">
+<input type="text" placeholder="Offset"  style="height:25px;" class="form-control" required>
+ </div>
+</div>
+
+ <div class="form-group text-left">
+ <label   class="col-sm-2" control-label" >Length(Bytes):</label>
+ <div class="col-sm-4">
+<input type="text" placeholder="Length" style="height:25px;" class="form-control" required>
+</div>
+</div>
+
+ <div class="form-group text-left">
+ <label for="name" class="col-sm-2" control-label">Text:</label>
+  <div class="col-sm-4">
+  <textarea  style="height:35px" plceholder="Text" class="form-control"></textarea>
+ </div>
+ </div>
+ <div class="form-group text-left">
+ <label   class="col-sm-2" control-label">Color:</label>
+ <div class="col-sm-4">
+ <input type="file" class="filestyle" data-buttonText="...">
+ </div>
+ </div>
+ <div class="form-group text-left">
+ <label class="col-sm-5" control-label">specify at the entitlement time </label>
+<div class="col-sm-1">
+ <input style="width:20px;height:20px" type="checkbox" value="" class="form-control" >
+ </div>     
+ </div>
+ 
+ <!-- container div close -->
+   </form>
+ 		</div>
+        <div class="modal-footer">
+		<button type="button" class="btn btn-default" data-dismiss="modal">Save</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		  
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  			<!---- End New Memory--->
+            
+            <!-- memory  Edit --->
+            <div class="modal fade" id="mem_edit" role="dialog">
+    <div class="modal-dialog ">
+      <div class="modal-content">
+        <div class="modal-header" style="background-color:#919191;color:white">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Edit Memory </h4>
+        </div>
+        <div class="modal-body">
+		<form class="form-horizontal">
+         
+ <div class="form-group text-left">
+ <label  class="col-sm-2" control-label">  Name:</label>
+ <div class="col-sm-4">
+ <input type="text" placeholder="Name" style="height:25px;" class="form-control">
+ </div>
+ </div>
+
+<div class="form-group text-left">
+<label for="name" class="col-sm-2" control-label">Description:</label>
+<div class="col-sm-4">
+<textarea  class="form-control" placeholder="Description" style="height:35px;" ></textarea>
+</div>
+ </div>
+
+ <div class="form-group text-left">
+<label   class="col-sm-2" control-label">Offset:</label>
+<div class="col-sm-4">
+<input type="text" Placeholder="Offset"  style="height:25px;" class="form-control" required>
+ </div>
+</div>
+
+ <div class="form-group text-left">
+ <label   class="col-sm-2" control-label" >Length(Bytes):</label>
+ <div class="col-sm-4">
+<input type="text" placeholder="Length" style="height:25px;" class="form-control" required>
+</div>
+</div>
+
+ <div class="form-group text-left">
+ <label for="name" class="col-sm-2" control-label">Text:</label>
+  <div class="col-sm-4">
+  <textarea  placeholder="Text" style="height:35px;" class="form-control"></textarea>
+ </div>
+ </div>
+ <div class="form-group text-left">
+ <label   class="col-sm-2" control-label">Color:</label>
+ <div class="col-sm-4">
+ <input type="file" class="filestyle" data-buttonText="...">
+ </div>
+ </div>
+ <div class="form-group text-left">
+ <label class="col-sm-5" control-label">specify at the entitlement time </label>
+<div class="col-sm-1">
+ <input style="width:20px;height:20px" type="checkbox" value="" class="form-control" >
+ </div>     
+ </div>
+ 
+ <!-- container div close -->
+   </form>
+ 		</div>
+        <div class="modal-footer">
+		<button type="button" class="btn btn-default" data-dismiss="modal">Save</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		  
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  			<!-- end momory edit-->
+            
+            <!-- Memory Upload -->
+            
+            <div class="modal fade" id="mem_load" role="dialog">
+    <div class="modal-dialog ">
+      <div class="modal-content">
+        <div class="modal-header" style="background-color:#919191;color:#FFFFFF">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Load Memory </h4>
+        </div>
+        <div class="modal-body">
+		<form class="form-horizontal">
+         
+ <div class="form-group text-left">
+ <label  class="col-sm-6" control-label">  Upload New Memory Segment</label>
+ <div class="col-sm-2">
+ <input type="file" class="filestyle" data-buttonText="...">
+ </div>
+ </div>
+
+
+   </form>
+ 		</div>
+        <div class="modal-footer">
+		<button type="button" class="btn btn-default" data-dismiss="modal">Save</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		  
+        </div>
+      </div>
+    </div>
+  </div>
+            
+            <!---end memory upload -->
+            
+          </div> 
+          <div class="table-responsive col-sm-3" style="margin-left:4px">
+          <table frame="box" bordercolor="#DFCBCB" class="table table-striped table-condensed">
+            <thead>
+            <tr>
+            <th>Details</th><th>&nbsp;</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>Entitlement Type</td><td>Perceptual</td></tr>
+			<tr>
+            <td>Licence Type</td><td>Software</td>
+            </tr>
+            <tr>
+            <td>&nbsp;</td><td>&nbsp;</td>
+            </tr>
+			<tr>
+            <td>&nbsp;</td><td>&nbsp;</td>
+            </tr>
+            <tr>
+            <td>&nbsp;</td><td>&nbsp;</td>
+            </tr>
+            <tr>
+            <td>&nbsp;</td><td>&nbsp;</td>
+            </tr>
+            <tr>
+            <td>&nbsp;</td><td>&nbsp;</td>
+            </tr>
+            <tr>
+            <td>&nbsp;</td><td>&nbsp;</td>
+            </tr>
+            <tr>
+            <td>&nbsp;</td><td>&nbsp;</td>
+            </tr>
+            <tr>
+            <td>&nbsp;</td><td>&nbsp;</td>
+            </tr>
+
+            </tbody>
+            </table>
+          </div>
+          
+        </div>
+        
+      </div>
+    </div>
+    
+    
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="scripts/jquery.min.js"></script>
+    <script src="scripts/bootstrap.min.js"></script>
+    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+    <script src="scripts/holder.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="scripts/ie10-viewport-bug-workaround.js"></script>
+    <script src="scripts/angular.min.js"></script>
+    <script>
+        var prdct_app=angular.module('product',[]);
+        var url="data.json";
+        prdct_app.controller('myTable_controller',function($scope,$http){
+            $http.get(url).success( function(response) {
+                $scope.product = response;
+            })
+        });
+    </script>
+
+  </body>
+</html>
