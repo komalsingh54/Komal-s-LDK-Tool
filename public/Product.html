@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="newProduct">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,6 +13,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="stylesheets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="stylesheets/css/dataTables.bootstrap.css" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="stylesheets/css/dashboard.css" rel="stylesheet">
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
@@ -23,6 +24,7 @@
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <script src="scripts/dataTables.bootstrap.js"></script>
     <![endif]-->
     <script src="scripts/jquery-latest.min.js">
     </script>
@@ -30,13 +32,11 @@
 
     <link href="stylesheets/css/animation.css" rel="stylesheet" type="text/css">
     <link href="stylesheets/css/glyphicons.css" rel="stylesheet" type="text/css">
-    <script src="stylesheets/css/angular-animate.js">
-    </script>
     <link href="stylesheets/css/cssmenu.css" rel="stylesheet">
-    <script src="scripts/menuscript.js">
-    </script>
+    <script src="scripts/menuscript.js"></script>
+
 </head>
-<body ng-app="product">
+<body ng-controller="NewProduct">
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -52,9 +52,8 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="Product.html">Products</a></li>
-
                 <li><a href="Features.html">Features</a></li>
-                <li><a href="Features.html">Entitlement</a></li>
+                <li><a href="LicenseDefine.html">Define License</a></li>
             </ul>
             <form class="navbar-form navbar-right">
                 <input type="text" class="form-control" placeholder="Search...">
@@ -82,7 +81,7 @@
                 </li>
                 <li class='has-sub'><a href='#'>Entitlement</a>
                     <ul>
-                        <li><a href='#'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Entitlement</a>
+                        <li><a href='LicenseDefine.html'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Define License</a>
 
                         </li>
                         <li><a href='#'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Check in C2V</a>
@@ -141,36 +140,36 @@
                                 <div class="modal-body" >
                                     <div class="row">
                                         <div class="col-sm-6">
-                                            <label> <h4>Define Products</h4> </label>
+                                            <label> <h4>Define a Product</h4> </label>
                                             <form class="form-horizontal ng-pristine ng-valid">
-                                                <div class="form-group text-left"><br>
+                                                <div class="form-group text-left">
                                                     <label for="Base Product" class="col-sm-4">Base Product:</label>
                                                     <div class="col-sm-6">
-                                                        <input placeholder="Base Product" class="form-control" style="height:25px;width:145px" type="text">
+                                                        <input placeholder="Product Name" class="form-control" style="height:25px;width:145px" type="text" ng-model="product.productName">
                                                     </div>
                                                 </div>
                                                 <div class="form-group text-left">
                                                     <label for="ID" class="col-sm-4">Product ID:</label>
                                                     <div class="col-sm-4">
-                                                        <input style="height:25px;width:145px" placeholder="Product ID" class="form-control" type="text">
+                                                        <input style="height:25px;width:145px" placeholder="Product ID" class="form-control" type="text" ng-model="product.productID">
                                                     </div>
                                                     <div class="col-sm-4">
-                                                        <button type="button" class="btn btn-default btn-sm">Available?</button>
+                                                        <button type="button" class="btn btn-default btn-xs">Available?</button>
                                                     </div>
                                                 </div>
                                                 <!-- container div close -->
                                             </form>
                                         </div>
                                         <div class="col-sm-6">
-                                            <div class="form-group col-sm-6 text-left" style="float:left">
+                                            <div class="form-group col-sm-6 text-left" style="float:left"><br>
                                                 <label class="control-label" for="name">Description:</label>
                                                 <div>
-                                                    <textarea placeholder="Description" style="width: 210px; height: 45px;" class="form-control"></textarea>
+                                                    <textarea placeholder="Description" style="width: 210px; height: 45px;" class="form-control" ng-model="product.productDescription"></textarea>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-12 text-left" style="float:left"> <label>Attributes Status:</label><br>
+                                            <div class="col-sm-12 text-left" style="float:left">
                                                 <label>Locking Type</label> &nbsp;
-                                                <select>
+                                                <select ng-model="product.productLockingType">
                                                     <option value="HL">HL</option>
                                                     <option value="SL">SL</option>
                                                     <option value="HL or SL">HL or SL</option>
@@ -178,86 +177,51 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="line-separator"></div>
+                                   <!-- <div class="line-separator"></div> -->
                                     <div class="row" style="border-bottom:thick grey">
                                         <div class="col-lg-12" style="margin-top:10px;">
                                             <div class="container">
                                                 <div class="col-sm-11">
                                                     <div class="container row col-sm-10">
-                                                        <h4 style="font-weight: 400;color: #414446">Memory: <input type="checkbox" ng-model="checked" aria-label="Toggle ngHide"></h4><br>
-                                                        <div>
-                                                            <div class="" ng-show="checked">
-                                                                <span></span>
-                                                                <div> <label> Memory Type: &nbsp;&nbsp;</label>
-                                                                    <select>
-                                                                        <option> Read only memory </option>
-                                                                        <option>Read/Write memory</option>
-                                                                    </select>&nbsp;&nbsp;&nbsp;&nbsp;
-                                                                    <input type="checkbox" name="t1"> <label> Hex address </label>
-                                                                </div>
-                                                                <div class="col-md-9 table-responsive text-left">
-                                                                    <br>
-                                                                    <table class="table table-striped table-bordered table-hover table-condensed" frame="box" border-color="grey">
-                                                                        <thead>
-                                                                        <tr>
-                                                                            <th>ID</th>
-                                                                            <th> Name </th>
-                                                                            <th> Description </th>
-                                                                            <th> From </th>
-                                                                            <th> To </th>
-                                                                            <th> Length </th>
-                                                                            <th> Text </th>
-                                                                        </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                        <tr>
-                                                                            <td>xyzxyz</td>
-                                                                            <td>xyzxyz</td>
-                                                                            <td>xyzxyz</td>
-                                                                            <td>xyzxyz</td>
-                                                                            <td>xyzxyz</td>
-                                                                            <td>xyzxyz</td>
-                                                                            <td>xyzxyz</td>
-                                                                        </tr>
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
-                                                                <div class="col-md-3 table-responsive">
-                                                                    <div style="margin:5px;">
-                                                                        <button class="btn btn-default btn-sm" data-toggle="modal" data-target="#new_mem">New&nbsp;&nbsp;&nbsp;</button>
-                                                                        <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#mem_edit">Edit  &nbsp;  </button>
-                                                                    </div>
-                                                                    <div style="margin:5px;">
-                                                                        <button class="btn btn-sm btn-default">Delete </button>
-                                                                        <button class="btn btn-sm btn-default">Save  </button>
-                                                                    </div>
-                                                                    <div  style="margin:5px;">
-                                                                        <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#mem_load">Load  &nbsp;   </button>
-                                                                        <button class="btn btn-sm btn-default">Undo    </button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
                                                         <div>
                                                             <div ng-hide="checked">
                                                                 <span></span>
-                                                                <table  ng-controller="myTable_controller" class="table table-striped table-bordered table-hover table-condensed">
-                                                                    <thead>
+                                                                <button class="btn btn-default btn-xs" data-toggle="modal" data-target="#showFeature">Select Feature</button><br>
+                                                                <span style="color:black" class="selected-item">Selected Items:</span>
+                                                                <div style="overflow: scroll;height: 200px;width:830px;" class="table">
+
+                                                                <table  id="productTable" class="table table-striped table-bordered table-hover table-condensed table-fixed">
+                                                                    <thead  style="font-weight: 300;font-size: 12px">
                                                                     <tr>
                                                                         <th>ID</th>
-                                                                        <th>Feature Name </th>
-                                                                        <th>Feature Description </th>
+                                                                        <th style="width: 100px;">Feature Name </th>
+                                                                        <th style="width:100px;">License Type</th>
+                                                                        <th>Concurrency</th>
+                                                                        <th>Accessibility</th>
+                                                                        <th style="width:75px">Actions</th>
                                                                     </tr>
                                                                     </thead>
                                                                     <tbody>
-                                                                    <tr ng-repeat="feature in product" >
-                                                                        <td>{{ feature.ID }} </td>
-                                                                        <td> {{ feature.Name }}  </td>
-                                                                        <td>  {{feature.Description}} &nbsp;  <button  class="btn btn-xs  btn-default" data-toggle="modal" data-target="#modalId">Define
-                                                                        </button></td>
+                                                                    <tr ng-model="name" ng-repeat="contact in productArray" class="selected-item" >
+                                                                        <td>{{contact.featureID}}</td>
+                                                                        <td>{{contact.featureName}}</td>
+                                                                        <td>{{contact.licenceType}}</td>
+                                                                        <td>Concurrent Instances:{{contact.counts}}, &nbsp;Unlimited Concurrency:{{contact.atOrderTime}},
+                                                                        &nbsp;Count Criteria:{{contact.countCriteria}}</td>
+                                                                        <td>Remote Desktop: {{contact.remotedesktop}},&nbsp;Network:{{contact.network}},&nbsp;VM:{{contact.vm}}</td>
+
+                                                                        <td>
+                                                                        <button class="btn btn-xs glyphicon glyphicon-pencil btn-default" ng-click="editProduct(contact.id)" >
+                                                                        </button>
+                                                                            <button class="btn btn-default btn-xs glyphicon glyphicon-trash" ng-click="deleteProduct(contact.id)"></button>
+                                                                        </td>
                                                                     </tr>
                                                                     </tbody>
                                                                 </table>
+                                                                    </div>
+                                                                <br>
+                                                                <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="addProduct(product,productArray)">Add Product</button>
+                                                                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -266,489 +230,220 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                <div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-
-                    <!-- for define License -->
-                    <!--     define model whose name is id= modalId--><div class="modal fade" id="modalId" role="dialog">
-                        <div class="modal-dialog modal-lg">
-
-                            <!-- Modal content-->
-                            <div class="modal-content text-left">
-                                <div class="modal-header" style="background-color:#919191;color:#FFF">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title text-left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Define License Terms</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <!-- define each Feature -->
-                                    <div class="row">
-                                        <div class="col-sm-14" >
-                                            <div class="col-sm-14"  >
-                                                <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;License Terms </label>
-
-                                                <div class="col-sm-14" style="border:#D3D3D3">
-                                                    <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;License Type: </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                    <select>
-                                                        <option value="Perpectual">Perpectual</option>
-                                                        <option value="Executions">Executions</option>
-                                                        <option value="Expiration Date">Expiration Date</option>
-                                                        <option value="Time Period">Time Period</option>
-                                                        <option value="Specify At The Order Time">Specify At The Order Time</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div ng-init="mySwitch=false" >
-                                                <div class="col-sm-6"><br>
-                                                    <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  Concurrency </label><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                    <label> <input type="checkbox" ng-model="mySwitch" class="ng-valid ng-dirty ng-valid-parse ng-touched"> &nbsp;&nbsp;Enable Concurrency </label><br>
-                                                    <form class="ng-pristine ng-valid">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                        <input type="checkbox" name="con1" ng-disabled="!mySwitch" disabled="disabled">&nbsp;&nbsp;
-                                                        <input type="number" name="count" ng-disabled="!mySwitch" disabled="disabled">&nbsp;&nbsp;Concurrent Instances<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                        <input type="checkbox" name="con2" ng-disabled="!mySwitch" disabled="disabled">&nbsp;&nbsp;Unlimited Concurrent Instances<br>
-                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                        <input type="checkbox" name="con3" ng-disabled="!mySwitch" disabled="disabled">&nbsp;&nbsp;specify at the order time<br>
-                                                    </form>
-                                                </div>
-                                                <div class="col-sm-4"><br>
-                                                    <div class="col-sm-14">
-                                                        <label ng-disabled="!mySwitch" disabled="disabled">count each </label>
-                                                        <select ng-disabled="!mySwitch" disabled="disabled">
-                                                            <option value="Station" ng-disabled="!mySwitch" disabled="disabled">Station</option><option value="Login" ng-disabled="!mySwitch" disabled="disabled">Login</option>
-                                                            <option value="Process" ng-disabled="!mySwitch" disabled="disabled">Process</option>
-                                                        </select>
-                                                        <label>as an instance </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-14" ><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <label> Accessibility </label></br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <input type="checkbox" name="remote desktop">&nbsp;Remote Desktop&nbsp;&nbsp;
-                                        <input type="checkbox" name="Network">&nbsp;Network &nbsp;&nbsp;
-                                        <input type="checkbox" name="Virtual machine">&nbsp;Virtual  Machine &nbsp;&nbsp;
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button></div>
-                            </div>
-                        </div>
-
-
-
-                        <!--------====---===-----===--POP UP closed --*-*-*-*-*-*-*-*_---->
-
-
-                    </div>
+                        <!------- New Button Closed--->
                 </div>
-
-
-                <!------- New Button Closed--->
-
-            </div>
-        </div>
-
-        <div class="table-responsive col-sm-8 text-left">
-            <table frame="box" bordercolor="#DFCBCB" class="table table-striped table-condensed">
-                <thead>
-                <tr>
-                    <th><input type="checkbox"></th>
+                <div class="table-responsive col-sm-7 text-left">
+                    <table frame="box" bordercolor="#DFCBCB" class="table table-striped table-condensed table-hover" data-sort-order="desc" data-sort-name="name">
+                        <thead>
+                        <tr>
+                            <th>#</th>
                     <th data-align="left">Product ID</th>
                     <th data-align="left">Product Name</th>
-
                     <th data-align="left">Status</th>
                     <th data-align="left">Type</th>
                     <th data-align="left">Actions</th>
                 </tr>
                 </thead>
                 <tbody class="text-left">
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>1,001</td>
-                    <td>Lorem</td>
-                    <td>dolor</td>
-                    <td>sit</td>
-                    <td><select>
-                        <option>Edit</option>
-                        <option>Activate</option>
-                        <option>Deactivate</option>
-                        <option>Delete</option>
-                    </select>
+                <tr class="selectme" ng-repeat="getProduct in productDB">
+                    <script>
+                    $('.selectme input:checkbox').click(function() {
+                    $('.selectme input:checkbox').not(this).prop('checked', false);
+                    });
+                    </script>
+                    <td class="selectme"><input type="checkbox"  class="myCheckbox2" ng-click="showDetails(getProduct._id)"></td>
+                    <td>{{getProduct.productID}}</td>
+                    <td>{{getProduct.productName}}</td>
+                    <td>{{getProduct.productDescription}}</td>
+                    <td>{{getProduct.productLockingType}}</td>
+                    <td>
+                        <button class="btn btn-default glyphicon glyphicon-pencil btn-xs"></button>&nbsp;&nbsp;
+                        <button class="btn btn-default glyphicon glyphicon-trash btn-xs" ng-click="removeProduct(getProduct._id)"></button>
                     </td>
                 </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
 
-                    <td>1,002</td>
-                    <td>amet</td>
-                    <td>consectetur</td>
-
-                    <td>elit</td>
-                    <td><select>
-                        <option>Edit</option>
-                        <option>Activate</option>
-                        <option>Deactivate</option>
-                        <option>Delete</option>
-                    </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>1,003</td>
-                    <td>Integer</td>
-
-                    <td>odio</td>
-                    <td>Praesent</td>
-                    <td><select>
-                        <option>Edit</option>
-                        <option>Activate</option>
-                        <option>Deactivate</option>
-                        <option>Delete</option>
-                    </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>1,003</td>
-                    <td>libero</td>
-                    <td>Sed</td>
-
-                    <td>ante</td>
-                    <td><select>
-                        <option>Edit</option>
-                        <option>Activate</option>
-                        <option>Deactivate</option>
-                        <option>Delete</option>
-                    </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>1,009</td>
-                    <td>augue</td>
-
-                    <td>porta</td>
-                    <td>Mauris</td>
-                    <td><select>
-                        <option>Edit</option>
-                        <option>Activate</option>
-                        <option>Deactivate</option>
-                        <option>Delete</option>
-                    </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>1,010</td>
-                    <td>massa</td>
-
-                    <td>lacinia</td>
-                    <td>arcu</td>
-                    <td><select>
-                        <option>Edit</option>
-                        <option>Activate</option>
-                        <option>Deactivate</option>
-                        <option>Delete</option>
-                    </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>1,011</td>
-
-                    <td>nulla</td>
-                    <td>Class</td>
-                    <td>aptent</td>
-                    <td><select>
-                        <option>Edit</option>
-                        <option>Activate</option>
-                        <option>Deactivate</option>
-                        <option>Delete</option>
-                    </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>1,012</td>
-                    <td>taciti</td> <td>sociosqu</td>
-
-                    <td>litora</td>
-                    <td><select>
-                        <option>Edit</option>
-                        <option>Activate</option>
-                        <option>Deactivate</option>
-                        <option>Delete</option>
-                    </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>1,013</td>
-                    <td>torquent</td>
-
-                    <td>conubia</td>
-                    <td>nostra</td>
-                    <td><select>
-                        <option>Edit</option>
-                        <option>Activate</option>
-                        <option>Deactivate</option>
-                        <option>Delete</option>
-                    </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>1,014</td>
-                    <td>per</td>
-
-                    <td>himenaeos</td>
-                    <td>Curabitur</td>
-                    <td><select>
-                        <option>Edit</option>
-                        <option>Activate</option>
-                        <option>Deactivate</option>
-                        <option>Delete</option>
-                    </select>
-                    </td>
-                </tr>
 
                 </tbody>
             </table>
-            <!-- new model -->
 
 
-            <div class="modal fade" id="new_mem" role="dialog">
-                <div class="modal-dialog ">
-                    <div class="modal-content">
-                        <div class="modal-header" style="background-color:#919191;color:#FFFFFF">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Define New Memory Segment </h4>
-                        </div>
-                        <div class="modal-body">
-                            <form class="form-horizontal">
-
-                                <div class="form-group text-left">
-                                    <label  class="col-sm-2" control-label">  Name:</label>
-                                    <div class="col-sm-4">
-                                        <input type="text" style="height:25px" placeholder="Name" class="form-control">
-                                    </div>
-                                </div>
-
-                                <div class="form-group text-left">
-                                    <label for="name" class="col-sm-2" ">Description:</label>
-                                    <div class="col-sm-4">
-                                        <textarea  class="form-control" placeholder="Description" style="height:35px;" ></textarea>
-                                    </div>
-                                </div>
-
-                                <div class="form-group text-left">
-                                    <label   class="col-sm-2" control-label">Offset:</label>
-                                    <div class="col-sm-4">
-                                        <input type="text" placeholder="Offset"  style="height:25px;" class="form-control" required>
-                                    </div>
-                                </div>
-
-                                <div class="form-group text-left">
-                                    <label   class="col-sm-2" control-label" >Length(Bytes):</label>
-                                    <div class="col-sm-4">
-                                        <input type="text" placeholder="Length" style="height:25px;" class="form-control" required>
-                                    </div>
-                                </div>
-
-                                <div class="form-group text-left">
-                                    <label for="name" class="col-sm-2" control-label">Text:</label>
-                                    <div class="col-sm-4">
-                                        <textarea  style="height:35px" plceholder="Text" class="form-control"></textarea>
-                                    </div>
-                                </div>
-                                <div class="form-group text-left">
-                                    <label   class="col-sm-2" control-label">Color:</label>
-                                    <div class="col-sm-4">
-                                        <input type="file" class="filestyle" data-buttonText="...">
-                                    </div>
-                                </div>
-                                <div class="form-group text-left">
-                                    <label class="col-sm-5" control-label">specify at the entitlement time </label>
-                                    <div class="col-sm-1">
-                                        <input style="width:20px;height:20px" type="checkbox" value="" class="form-control" >
-                                    </div>
-                                </div>
-
-                                <!-- container div close -->
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Save</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!---- End New Memory--->
-
-            <!-- memory  Edit --->
-            <div class="modal fade" id="mem_edit" role="dialog">
-                <div class="modal-dialog ">
-                    <div class="modal-content">
-                        <div class="modal-header" style="background-color:#919191;color:white">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Edit Memory </h4>
-                        </div>
-                        <div class="modal-body">
-                            <form class="form-horizontal">
-
-                                <div class="form-group text-left">
-                                    <label  class="col-sm-2" control-label">  Name:</label>
-                                    <div class="col-sm-4">
-                                        <input type="text" placeholder="Name" style="height:25px;" class="form-control">
-                                    </div>
-                                </div>
-
-                                <div class="form-group text-left">
-                                    <label for="name" class="col-sm-2" control-label">Description:</label>
-                                    <div class="col-sm-4">
-                                        <textarea  class="form-control" placeholder="Description" style="height:35px;" ></textarea>
-                                    </div>
-                                </div>
-
-                                <div class="form-group text-left">
-                                    <label   class="col-sm-2" control-label">Offset:</label>
-                                    <div class="col-sm-4">
-                                        <input type="text" Placeholder="Offset"  style="height:25px;" class="form-control" required>
-                                    </div>
-                                </div>
-
-                                <div class="form-group text-left">
-                                    <label   class="col-sm-2" control-label" >Length(Bytes):</label>
-                                    <div class="col-sm-4">
-                                        <input type="text" placeholder="Length" style="height:25px;" class="form-control" required>
-                                    </div>
-                                </div>
-
-                                <div class="form-group text-left">
-                                    <label for="name" class="col-sm-2" control-label">Text:</label>
-                                    <div class="col-sm-4">
-                                        <textarea  placeholder="Text" style="height:35px;" class="form-control"></textarea>
-                                    </div>
-                                </div>
-                                <div class="form-group text-left">
-                                    <label   class="col-sm-2" control-label">Color:</label>
-                                    <div class="col-sm-4">
-                                        <input type="file" class="filestyle" data-buttonText="...">
-                                    </div>
-                                </div>
-                                <div class="form-group text-left">
-                                    <label class="col-sm-5" control-label">specify at the entitlement time </label>
-                                    <div class="col-sm-1">
-                                        <input style="width:20px;height:20px" type="checkbox" value="" class="form-control" >
-                                    </div>
-                                </div>
-
-                                <!-- container div close -->
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Save</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <!-- end momory edit-->
-
-            <!-- Memory Upload -->
-
-            <div class="modal fade" id="mem_load" role="dialog">
-                <div class="modal-dialog ">
-                    <div class="modal-content">
-                        <div class="modal-header" style="background-color:#919191;color:#FFFFFF">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Load Memory </h4>
-                        </div>
-                        <div class="modal-body">
-                            <form class="form-horizontal">
-
-                                <div class="form-group text-left">
-                                    <label  class="col-sm-6" control-label">  Upload New Memory Segment</label>
-                                    <div class="col-sm-2">
-                                        <input type="file" class="filestyle" data-buttonText="...">
-                                    </div>
-                                </div>
-
-
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Save</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!---end memory upload -->
-
-        </div>
-        <div class="table-responsive col-sm-3" style="margin-left:4px">
-            <table frame="box" bordercolor="#DFCBCB" class="table table-striped table-condensed">
+                     </div>
+                <div class="table-responsive col-sm-4" style="margin-left:4px">
+                    <table frame="box" bordercolor="#DFCBCB" class="table table-striped table-condensed table-hover table-bordered">
                 <thead>
                 <tr>
-                    <th>Details</th><th>&nbsp;</th>
+                    <th style="width: 70px;">Details</th><th style="width: 150px;">&nbsp;</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <td>Entitlement Type</td><td>Perceptual</td></tr>
+                    <td>Product Name:</td><td>{{OneProducts.productName}}</td></tr>
                 <tr>
-                    <td>Licence Type</td><td>Software</td>
+                    <td>Product ID:</td><td>{{OneProducts.productID}}</td>
                 </tr>
                 <tr>
-                    <td>&nbsp;</td><td>&nbsp;</td>
+                    <td>Locking Type:</td><td>{{OneProducts.productLockingType}}</td>
                 </tr>
                 <tr>
-                    <td>&nbsp;</td><td>&nbsp;</td>
+                    <td>Feature ID:</td><td>{{OneProducts.features[0].featureID}}</td>
                 </tr>
                 <tr>
-                    <td>&nbsp;</td><td>&nbsp;</td>
+                    <td>Feature Name:</td><td>{{OneProducts.features[0].featureName}}</td>
                 </tr>
                 <tr>
-                    <td>&nbsp;</td><td>&nbsp;</td>
+                    <td>License Type:</td><td>{{OneProducts.features[0].licenceType}}</td>
                 </tr>
                 <tr>
-                    <td>&nbsp;</td><td>&nbsp;</td>
+                    <td>Concurrency:</td><td>Concurrent Instances:{{OneProducts.features[0].concurrentInstances}}<br>
+                                            Unlimited Instances;{{OneProducts.features[0].counts}}<br>
+                                            Count Criteria:{{OneProducts.features[0].countCriteria}}
+                </td>
                 </tr>
                 <tr>
-                    <td>&nbsp;</td><td>&nbsp;</td>
+                    <td>Accessibility:</td><td>Remote Desktop:{{OneProducts.features[0].remotedesktop}}
+                <br>Network : {{OneProducts.features[0].network}}<br>
+                    Virtual Machine:{{OneProducts.features[0].virtualMachine}}
+                </td>
                 </tr>
-                <tr>
-                    <td>&nbsp;</td><td>&nbsp;</td>
-                </tr>
-                <tr>
-                    <td>&nbsp;</td><td>&nbsp;</td>
-                </tr>
-
                 </tbody>
             </table>
-        </div>
+                </div>
+            </div>
 
+</div>
     </div>
 
-</div>
+<!-------- Show Features--->
+
+    <div id = "showFeature" role="dialoge" class="modal fade">
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content"  >
+                                <div class="modal-header" style="background-color:#919191;color:#ff8591;font-weight: 300;"><button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4>Select Features</h4>
+                                </div>
+                                <div class="modal-body col-md-12">
+                                    <div></div>
+                                    <div frame="box"  class="col-md-12"  >
+                                        <br>
+                                        <table class="table table-responsive table-bordered table-striped table-condensed table-hover">
+                                            <tr><th>Feature ID&nbsp;</th><th>&nbsp;Feature Name&nbsp;</th><th>&nbsp;Feature Description</th><th>Actions</th></tr>
+                                            <tr ng-repeat="feature in productFeature">
+                                                <td>&nbsp;{{feature.featureID}}</td>
+                                                <td>{{feature.featureName}}</td>
+                                                <td>{{feature.featureDescription}}</td>
+                                                <td> &nbsp;
+                                                <button class="btn btn-default btn-xs" data-toggle="modal" data-target="#modalId" ng-click="configureFeature(feature)">configure & select</button>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                         <button class="btn btn-warning" data-dismiss="modal">Select</button>
+                                        <br><br>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 </div>
 
+
+
+
+
+<!----close show features-->
+
+
+
+
+<!-- for define License -->
+<!--     define model whose name is id= modalId--><div class="modal fade" id="modalId" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content text-left">
+            <div class="modal-header" style="background-color:#919191;color:#FFF">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title text-left">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Define License Terms</h4>
+            </div>
+            <div class="modal-body">
+                <!-- define each Feature -->
+                <div class="row">
+                    <div class="col-md-12" >
+                        <div class="col-md-12"  >
+                            <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;License Terms </label>
+
+                            <div class="col-md-12" style="border:#D3D3D3">
+                                Feature ID:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <input type="text" placeholder="Feature ID" ng-model="name.featureID"><br>
+                                Feature Name:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <input type="text" placeholder="Feature Name" ng-model="name.featureName"><br>
+                                Feature Description:&nbsp;&nbsp;&nbsp;&nbsp;
+                                <input type="textarea" placeholder="Feature Description" ng-model="name.featureDescription"><br>
+                                <label>
+                                    License Type: </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <select ng-model="name.licenceType">
+                                    <option value="Perpectual">Perpectual</option>
+                                    <option value="Executions">Executions</option>
+                                    <option value="Expiration Date">Expiration Date</option>
+                                    <option value="Time Period">Time Period</option>
+                                    <option value="Specify At The Order Time">Specify At The Order Time</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div ng-init="mySwitch=false" >
+                            <div class="col-md-12"><br>
+                                <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  Concurrency </label><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <label> <input type="checkbox" ng-model="mySwitch" class="ng-valid ng-dirty ng-valid-parse ng-touched"> &nbsp;&nbsp;Enable Concurrency </label><br>
+                                <form class="ng-pristine ng-valid">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <input type="checkbox" name="con1" ng-disabled="!mySwitch" disabled="disabled">
+                                    &nbsp;&nbsp;Concurrent Instances&nbsp;&nbsp;
+                                    <input type="number" name="con4" ng-disabled="!mySwitch" disabled="disabled" ng-model="name.concurrentInstances">
+                                    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <input type="checkbox" name="con2" ng-disabled="!mySwitch" disabled="disabled" ng-model="name.counts">&nbsp;&nbsp;Unlimited Concurrent Instances<br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <input type="checkbox" name="con3" ng-disabled="!mySwitch" disabled="disabled" ng-model="name.atOrderTime">&nbsp;&nbsp;specify at the order time<br>
+                                </form>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <label ng-disabled="!mySwitch" disabled="disabled">count each </label><label>as an instance </label>
+                                <select ng-disabled="!mySwitch" disabled="disabled" ng-model="name.countCriteria">
+                                    <option value="Station" ng-disabled="!mySwitch" disabled="disabled">Station</option>
+                                    <option value="Login" ng-disabled="!mySwitch" disabled="disabled">Login</option>
+                                    <option value="Process" ng-disabled="!mySwitch" disabled="disabled">Process</option>
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12" ><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label> Accessibility </label></br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="checkbox" name="remote desktop" ng-model="name.remotedesktop">&nbsp;Remote Desktop&nbsp;&nbsp;
+                    <input type="checkbox" name="Network" ng-model="name.network">&nbsp;Network &nbsp;&nbsp;
+                    <input type="checkbox" name="Virtual machine" ng-model="name.vm">&nbsp;Virtual  Machine &nbsp;&nbsp;
+                    <br><br>
+                </div>
+                <br><button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="featureDefine(name)">Save</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button></div>
+        </div>
+        <div class="modal-footer">
+
+        </div>
+    </div>
+
+
+
+    <!--------====---===-----===--POP UP closed --*-*-*-*-*-*-*-*_---->
 
 
 <!-- Bootstrap core JavaScript
@@ -760,16 +455,10 @@
 <script src="scripts/holder.js"></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="scripts/ie10-viewport-bug-workaround.js"></script>
+    <script src="scripts/jquery.json.min.js"></script>
 <script src="scripts/angular.min.js"></script>
-<script>
-    var prdct_app=angular.module('product',[]);
-    var url="data.json";
-    prdct_app.controller('myTable_controller',function($scope,$http){
-        $http.get(url).success( function(response) {
-            $scope.product = response;
-        })
-    });
-</script>
+<script src="scripts/controller/newProductController.js"></script>
+<script src="stylesheets/css/angular-animate.js"></script>
 
 </body>
 </html>

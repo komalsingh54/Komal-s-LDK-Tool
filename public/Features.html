@@ -45,7 +45,7 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="Product.html">Products</a></li>
                 <li><a href="Features.html">Features</a></li>
-                <li><a href="Features.html">Entitlement</a></li>
+                <li><a href="LicenseDefine.html">Define License</a></li>
             </ul>
             <form class="navbar-form navbar-right">
                 <input type="text" class="form-control" placeholder="Search...">
@@ -68,7 +68,7 @@
                 </li>
                 <li class=' has-sub'><a href='#'>Entitlement</a>
                     <ul>
-                        <li><a href='#'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Entitlement</a></li>
+                        <li><a href='LicenseDefine.html'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Define License</a></li>
                         <li><a href='#'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Check in C2V</a></li>
                         <li><a href='#'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Check in Key</a></li>
                         <li><a href='#'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Recycle</a></li>
@@ -89,7 +89,7 @@
     </div>
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <div>
-            <div class="col-sm-6">
+            <div class="col-md-8">
                 <h4 class="sub-header">Existing Features</h4>
             </div>
             <div>
@@ -109,10 +109,10 @@
                                     <div class="col-md-2"></div>
                                     <div frame="box"  class="col-md-8"  >
                                         <br>
-                                        <label>Feature ID: </label><input type="text" placeholder="Feature ID" class="form-control" ng-model="featureAdd.featureID"><br>
-                                        <label>Feature Name:</label><input type="text" placeholder="Feature Name" class="form-control" ng-model="featureAdd.featureName"><br>
-                                        <label>Feature Description:</label><input type="text" placeholder="Feature Description" class="form-control" ng-model="featureAdd.featureDescription"><br>
-                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button style="background-color:#919191;color:white;font-weight: 300;width: 80px;" class="btn btn-info"  ng-click="add(featureAdd)">Save</button>
+                                        <label>Feature ID: </label><input type="text" placeholder="Feature ID" class="form-control" ng-model="featureAdds.featureID"><br>
+                                        <label>Feature Name:</label><input type="text" placeholder="Feature Name" class="form-control" ng-model="featureAdds.featureName"><br>
+                                        <label>Feature Description:</label><input type="text" placeholder="Feature Description" class="form-control" ng-model="featureAdds.featureDescription"><br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button style="background-color:#919191;color:white;font-weight: 300;width: 80px;" class="btn btn-info"  ng-click="add(featureAdds)">Save</button>
                                         &nbsp;&nbsp;
 
                                         <button class="btn btn-warning" data-dismiss="modal">Close</button>
@@ -132,7 +132,8 @@
 
             </div>
         </div>
-        <div class="table-responsive col-sm-7 text-left">
+        <div class="table-responsive col-md-10 text-left">
+        <div class="table-responsive col-md-10 text-left">
             <table frame="box" bordercolor="#DFCBCB" class="table table-striped table-condensed">
                 <thead>
                 <tr>
@@ -148,9 +149,9 @@
                     <td>{{f.featureName}}</td>
                     <td>{{f.featureDescription}}</td>
                     <td>
-                        <button  class="btn btn-default" data-toggle="modal" data-target="#modalId1" ng-click="edit(f._id)"><span class="glyphicon glyphicon-pencil"></span>
+                        <button  class="btn btn-default btn-xs" data-toggle="modal" data-target="#modalId1" ng-click="edit(f._id)"><span class="glyphicon glyphicon-pencil"></span>
                         </button>
-                        <button  class="btn btn-default" ng-click="remove(f._id)"><span class="glyphicon glyphicon-trash"></span></button>
+                        <button  class="btn btn-default btn-xs" ng-click="remove(f._id)"><span class="glyphicon glyphicon-trash"></span></button>
                     </td>
                 </tr>
                 </tbody>

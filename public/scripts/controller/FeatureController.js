@@ -4,7 +4,7 @@ app.controller('myController',['$scope','$http', function($scope,$http){
     var refresh= function () {
 
         $http.get('/feature').success(function (response) {
-            console.log('i recieved the Data');
+
             $scope.feature = response;
 
         });
@@ -12,11 +12,11 @@ app.controller('myController',['$scope','$http', function($scope,$http){
     refresh();
 
 
-    $scope.add=function(featureAdd)
+    $scope.add=function(featureAdds)
     {
-        $http.post('/feature',featureAdd).success(function(response)
+        $http.post('/feature',featureAdds).success(function(response)
         {
-            console.log(featureAdd);
+
         });
         location.reload();
     }
@@ -30,7 +30,7 @@ app.controller('myController',['$scope','$http', function($scope,$http){
 
     $scope.edit=function(id)
     {
-        console.log(id);
+
         $http.get('/feature/'+id).success(function (response) {
             $scope.featureAdd=response;
         });
