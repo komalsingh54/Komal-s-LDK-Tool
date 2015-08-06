@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+ <sentinel_ldk:license schema_version="1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sentinel_ldk="http://www.safenet-inc.com/sentinelldk">
+   <readable_license>Yes</readable_license>
+   <acknowledgement_request>Yes</acknowledgement_request>
+   <enforcement_type>HL</enforcement_type>
+   <upgrade_to_driverless>Yes</upgrade_to_driverless>
+   <product>
+      <id>1</id>
+      <name>Product Name</name>
+      <use_vclock>Yes</use_vclock>
+      <feature>
+         <id>1</id>
+         <name>Feature Name</name>
+         <license_properties>
+            <perpetual/>
+            <concurrency>
+               <count>Unlimited</count>
+               <count_criteria>Per Station</count_criteria>
+               <network_access>Yes</network_access>
+            </concurrency>
+            <remote_desktop_access>Yes</remote_desktop_access>
+         </license_properties>
+      </feature>
+   </product>
+   <memory>
+      <ro_memory_segment>
+         <offset>0</offset>
+         <content>U2FtcGxlIFJlYWQgT25seSBNZW1vcnk=</content>
+      </ro_memory_segment>
+      <rw_memory_segment>
+         <offset>0</offset>
+         <content>U2FtcGxlIFJlYWQgT25seSBNZW1vcnk=</content>
+      </rw_memory_segment>
+   </memory>
+ </sentinel_ldk:license>

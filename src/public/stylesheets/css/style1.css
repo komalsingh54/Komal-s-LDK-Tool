@@ -1,0 +1,324 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+/*
+.header {
+    position: fixed;
+    top: 0px;
+    min-width: 600px;
+    padding:  20px;
+}
+.header span {
+    float: right;
+}
+
+.container {
+    position: fixed;
+    top: 80px;
+}
+*/
+.view {
+    width: 300px;
+    float: left;
+    height: 150px;
+    margin-left: 6px;
+    background: #EEEEEE;
+}
+.view span {
+    float: left;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    font-size: 11px;
+    cursor: pointer;
+    border: 1px;
+    background: silver;
+}
+.view span:hover,
+.view span.current {
+    background: lightblue;
+}
+
+.view-char {
+    width: 180px;
+}
+.view-char span {
+    width: 12px;
+}
+
+.view-offset {
+    width: 68px;
+}
+.view-offset b {
+    float: left;
+    font-size: 12px;
+    line-height: 20px;
+
+}
+
+.tmp {
+    float: right;
+    /*height: 20000px;*/
+    width: 1px;
+}
+.invalid{
+    border-color: #E9322D!important;
+    box-shadow: 0 0 6px #F8B9B7!important;
+}
+#tabs {
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    height:100%;
+}
+
+/* latin-ext */
+@font-face {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Lato Regular'), local('Lato-Regular'), url(http://fonts.gstatic.com/s/lato/v11/UyBMtLsHKBKXelqf4x7VRQ.woff2) format('woff2');
+    unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Lato Regular'), local('Lato-Regular'), url(http://fonts.gstatic.com/s/lato/v11/1YwB1sO8YE1Lyjf12WNiUA.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+
+[ng-cloak],
+[data-ng-cloak],
+[x-ng-cloak],
+.ng-cloak,
+.x-ng-cloak {
+    display: none !important;
+}
+
+.tree, .tree ul{
+    font: normal normal 14px/20px;
+    list-style-type: none;
+    margin-left: 0 0 0 10px;
+    padding: 0;
+    position: relative;
+    overflow:hidden;
+}
+
+.tree li{
+    margin: 0;
+    padding: 0 12px;
+    position: relative;
+}
+
+.tree li::before, .tree li::after{
+    content: '';
+    position: absolute;
+    left: 0;
+}
+
+/* horizontal line on inner list items */
+.tree li::before{
+    border-top: 0px solid #999;
+    top: 10px;
+    width: 10px;
+    height: 0;
+}
+
+/* vertical line on list items */
+.tree li:after{
+    border-left: 0px solid #999;
+    height: 100%;
+    width: 0px;
+    top: -10px;
+}
+
+/* lower line on list items from the first level because they don't have parents */
+.tree > li::after{
+    top: 10px;
+}
+
+/* hide line from the last of the first level list items */
+.tree > li:last-child::after{
+    display: none;
+}
+
+.ins {
+    -moz-appearance:none;
+    -o-appearance:none;
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+}
+.ins:after {
+
+    content: ' + ';
+    font-weight: 800;
+
+}
+.ins.open[type=checkbox]:after {
+
+    content:" - ";
+    font-weight: 800;
+}
+
+.table-responsive.foo {
+    overflow-x: visible !important;
+    overflow-y: visible !important;
+}
+.tabs {
+    width:100%;
+    display:inline-block;
+}
+
+/*----- Tab Links -----*/
+/* Clearfix */
+.tab-links:after {
+    display:block;
+    clear:both;
+    content:'';
+}
+
+.tab-links li {
+    margin:0px 5px;
+    float:left;
+    list-style:none;
+}
+
+.tab-links a {
+    padding:9px 15px;
+    display:inline-block;
+    border-radius:3px 3px 0px 0px;
+    background:#7FB5DA;
+    font-size:16px;
+    font-weight:600;
+    color:#4c4c4c;
+    transition:all linear 0.15s;
+}
+
+.tab-links a:hover {
+    background:#a7cce5;
+    text-decoration:none;
+}
+
+li.active a, li.active a:hover {
+    background:#fff;
+    color:#4c4c4c;
+}
+
+/*----- Content of Tabs -----*/
+.tab-content {
+    padding:0px;
+    border-radius:3px;
+    box-shadow:-1px 1px 1px rgba(0,0,0,0.15);
+    background:#fff;
+}
+
+.tab {
+    display:none;
+}
+
+.tab.active {
+    display:block;
+}
+@import url("http://fonts.googleapis.com/css?family=Lato");
+* {
+    margin: 0;
+    padding: 0;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body1 {
+    padding: 0px;
+    text-align: left;
+    font-family: Lato;
+    color: #fff;
+    background: #9b59b6;
+}
+
+
+.tabs {
+
+    float: none;
+    list-style: none;
+    position: relative;
+    margin: 10px 0 0 0px;
+    text-align: left;
+}
+.tabs li {
+    float: left;
+    display: block;
+}
+.tabs input[type="radio"] {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+}
+.tabs label {
+    display: block;
+    padding: 10px 21px;
+    border-radius: 5px 5px 0 0;
+    font-size: 14px;
+    font-weight: normal;
+    background: #B6B6BA;
+    cursor: pointer;
+    position: relative;
+    top: 2px;
+    -moz-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+    margin-right: 5px;
+}
+.tabs label:hover {
+    background:lightseagreen;
+}
+.tabs .tab-content {
+    z-index: 2;
+    display: none;
+    overflow: hidden;
+    width: 100%;
+    font-size: 14px;
+    line-height: 20px;
+    padding: 10px;
+    position: absolute;
+    top: 38px;
+    left: 0;
+    background: rgb(218, 209, 209);
+}
+.tabs [id^="tab"]:checked + label {
+    top: 0;
+    padding-top: 12px;
+    background: rgb(218, 209, 209);
+}
+.tabs [id^="tab"]:checked ~ [id^="tab-content"] {
+    display: block;
+}
+
+p.link {
+    clear: both;
+    margin: 80px 0 0 15px;
+}
+p.link a {
+    text-transform: uppercase;
+    text-decoration: none;
+    display: inline-block;
+    color: #fff;
+    padding: 5px 10px;
+    margin: 0 5px;
+    background-color: #612e76;
+    -moz-transition: all 0.2s ease-in;
+    -o-transition: all 0.2s ease-in;
+    -webkit-transition: all 0.2s ease-in;
+    transition: all 0.2s ease-in;
+}
+p.link a:hover {
+    background-color: #522764;
+}

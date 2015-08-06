@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Komal Singh">
+    <link rel="icon" href="stylesheets/favicon%20(1).ico">
+    <title>Sentinel EMS</title>
+    <link href="stylesheets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="stylesheets/css/dashboard.css" rel="stylesheet">
+    <script src="../../assets/js/ie8-responsive-file-warning.js"></script>
+    <script src="scripts/dependency/ie-emulation-modes-warning.js"></script>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <script src="scripts/dependency/jquery-latest.min.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <link href="stylesheets/css/animation.css" rel="stylesheet" type="text/css">
+    <link href="stylesheets/css/cssmenu.css" rel="stylesheet">
+    <script src="scripts/dependency/menuscript.js"></script>
+</head>
+
+<body style="background-image:url(stylesheets/images/default-tier4.png);
+alignment: right;-webkit-background-size: 100%;background-size: 100%;">
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed btn-xs" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#"> Sentinel LDK License Design Tool Kit</a>
+        </div>
+
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a>Batch Code&nbsp;&nbsp;&nbsp;-</a>
+                </li>
+                <li class="dropdown">
+                    <select class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="margin-top: 15px;background-color: #222;color:#9d9d9d;border-color: #222">
+                        <option style="background-color: white;color: black;padding: 4px;" value="DEMOMA">DEMOMA</option>
+                        <option style="background-color: white;color: black;padding: 4px;" value="DEMOMB">DEMOMB</option>
+                        <option style="background-color: white;color: black;padding: 4px;" value="DEMOMC">DEMOMC</option>
+                    </select>
+                </li>
+                <li><a href="#">Settings</a>
+                </li>
+                <li><a href="index.html">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div style="height:75px; width:100%; background-attachment: fixed; background-repeat: no-repeat; background-size:contain;">
+    <h3 style="margin-top:-1px;color:#676767;margin-left:20%"></h3>
+</div>
+<div class="container-fluid">
+    <div class="col-sm-3 col-md-2 sidebar">
+        <div id='cssmenu'>
+            <ul>
+                <li class='has-sub'><a href='#'>Catalogs</a>
+                    <ul>
+                        <li><a href='Features.html'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Define Feature</a>
+                        </li>
+                        <li><a href='Product.html'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Define Product</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class=' has-sub'><a href=''>Manage Licenses</a>
+                    <ul>
+                        <li><a href='LicenseDefine.html'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Production License</a>
+                        </li>
+                        <li><a href='ProvisionalLicense.html'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Provisional License</a></li>
+                    </ul>
+                </li>
+                <li><a href='view_key_state.html'>View Key State</a>
+                </li>
+                <li><a href='#'>Master Key State</a>
+                </li>
+                <li><a href='#'>Help</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-sm-9 col-sm-offset-3 col-md-8 col-md-offset-3 main">
+        <div>
+            <div class="row">
+                <div class="col-sm-14">
+                    <div style="text-align:center ; margin-bottom:1px; ">
+                        <div>
+                            <picture>&nbsp;&nbsp;&nbsp;&nbsp;<img src="stylesheets/images/Cross%20Locking.png" alt="welcome to gemalto" width="34%">
+                            </picture>
+                        </div>
+                        <h1 style="text-align: center;font-size: 45px;margin-top: 0px;color:black;"><h2><br><strong>Sentinel LDK License Design Tool</strong></h2>
+                            <div style="color:grey;font-family: Times New Roman;font-size: 22px;font-weight: 100;text-align:center;font-style: normal;">  - Define Products, Licenses and Generate Sentinel LDK Protection Keys<div>
+                            </div>
+                                <div class="col-sm-3">
+                                </div>
+                            </div>
+                        </h1>
+                    </div>
+                </div>
+                <div class="col-sm-3"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<br>
+<div class="modal fade" id="alert1" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header" style="font-weight: 300;padding: 7px;">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Error</h4>
+            </div>
+            <div class="modal-body" style="background-color: white">
+                {{result}}
+            </div>
+            <div class="modal-footer" style="font-weight: 300;padding: 5px;">
+                <button type="button" class="btn btn-default btn-xs" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<footer style="position:fixed;bottom:0;width:100%;color:grey;">
+        <span style="text-align:center;color:grey;position:absolute;margin-bottom:1%;margin-left: 44%;">Copyright © 2015  Gemalto. All Rights Reserved.
+        </span>
+    <picture><span style="float:right;margin-right: 38px;"><img src="stylesheets/images/Gemalto.svg.png" alt="welcome to gemalto" width="100px"></span>
+    </picture>
+</footer>
+
+</body>
+<script src="scripts/dependency/jquery.min.js"></script>
+<script src="scripts/dependency/bootstrap.min.js"></script>
+<script src="scripts/dependency/holder.js"></script>
+<script src="scripts/dependency/ie10-viewport-bug-workaround.js"></script>
+<script src="scripts/dependency/angular.min.js"></script>
+
+</html>

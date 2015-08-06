@@ -1,0 +1,2590 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html lang="en" ng-app="newProduct">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="LDK Tool">
+    <meta name="author" content="Komal Singh">
+    <link rel="icon" href="stylesheets/favicon%20(1).ico">
+    <title>Sentinel EMS</title>
+    <link href="stylesheets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="stylesheets/css/style1.css" rel="stylesheet">
+    <link href="stylesheets/css/dashboard.css" rel="stylesheet">
+    <script src="scripts/dependency/ie-emulation-modes-warning.js"></script>
+    <script src="scripts/dependency/html5shiv.min.js"></script>
+    <script src="scripts/dependency/respond.min.js"></script>
+    <script src="scripts/dependency/jquery-latest.min.js"></script>
+    <link href="stylesheets/css/animation.css" rel="stylesheet" type="text/css">
+    <link href="stylesheets/css/glyphicons.css" rel="stylesheet" type="text/css">
+    <link href="stylesheets/css/cssmenu.css" rel="stylesheet">
+    <script src="scripts/dependency/menuscript.js"></script>
+</head>
+
+<body ng-controller="NewProduct"  ng-cloak>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Sentinel LDK License Design Tool</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a>Batch Code&nbsp;&nbsp;&nbsp;-</a>
+                </li>
+                <li class="dropdown">
+                    <select class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="margin-top: 15px;background-color: #222;color:#9d9d9d;border-color: #222">
+                        <option style="background-color: white;color: black;padding: 4px;">DEMOMA</option>
+                        <option style="background-color: white;color: black;padding: 4px;">DEMOMB</option>
+                        <option style="background-color: white;color: black;padding: 4px;">DEMOMC</option>
+                    </select>
+                </li>
+                <li>
+                    <a href="#">Settings</a>
+                </li>
+                <li>
+                    <a href="index.html">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div style="background-image:url(stylesheets/images/default-tier4.png);height:75px;width:100%;background-attachment: fixed;background-repeat: no-repeat; background-size:contain;">
+    <h3 style="margin-top:-1px;color:#676767;margin-left:20%;font-weight: 400">
+        <br>Products</h3>
+</div>
+<div class="container-fluid">
+    <div class="col-sm-3 col-md-2 sidebar">
+        <div id='cssmenu'>
+            <ul>
+                <li class='active has-sub'><a href='#'>Catalog</a>
+                    <ul>
+                        <li><a href='Features.html'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Define Feature</a>
+                        </li>
+                        <li><a href='Product.html'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Define Product</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class='has-sub'>
+                    <a href='#'>Manage Licenses</a>
+                    <ul>
+                        <li><a href='LicenseDefine.html'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Production License</a>
+                        </li>
+                        <li><a href='ProvisionalLicense.html'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Provisional License</a></li>
+                    </ul>
+                </li>
+                <li><a href='view_key_state.html'>View Key State</a>
+                </li>
+                <li><a href='#'>Master Key State</a>
+                </li>
+                <li><a href='#'>Help</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div>
+            <div class="col-sm-5">
+                <h4 class="sub-header" style="font-weight: 400;color: teal">Existing Product</h4>
+            </div>
+            <div>
+                <div class="col-md-3">
+                    <button class="btn btn-default" data-toggle="modal" data-target="#myModal" style="margin-right:8px;float: right;">+Add New Product</button>
+                    <div class="modal fade" id="myModal" role="dialog" data-backdrop="static" data-keyboard="false">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header" style="background-color:#919191;color:#FFF;padding: 10px;">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">&nbsp;&nbsp;&nbsp;New Product</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-sm-6" style="margin-left: 25px">
+                                            <label>
+                                                <h4>Define a Product</h4>
+                                            </label>
+                                            <form class="form-horizontal ng-pristine ng-valid" name="myform1" novalidate>
+                                                <input type="text" ng-hide="true" ng-init="product.flag='false'" ng-model="product.flag" value="false">
+                                                <div class="form-group text-left">
+                                                    <label class="col-sm-4"><span style="color: red;">*</span>Base Product:</label>
+                                                    <div class="col-sm-6">
+                                                        <input placeholder="Product Name" class="form-control" style="height:30px;width:175px" type="text" ng-maxlength="50" ng-minlength="1" name="BaseProduct" ng-model="product.productName" required="">
+                                                        <div ng-show="myform1.$submitted || myform1.BaseProduct.$touched">
+                                                            <div ng-show="myform1.BaseProduct.$error.required" style="color: red;">Please Enter Product Name</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <script>
+                                                    function isNumberKey(evt){
+                                                        var charCode = (evt.which) ? evt.which : event.keyCode
+                                                        if (charCode > 31 && (charCode < 48 || charCode > 57))
+                                                            return false;
+                                                        return true;
+                                                    }
+                                                </script>
+                                                <div class="form-group text-left">
+                                                    <label class="col-sm-4"><span style="color: red;">*</span>Product ID:</label>
+                                                    <div class="col-sm-6">
+                                                        <input style="height:30px;width:175px" name="productID" onkeypress="return isNumberKey(event)" placeholder="Product ID" class="form-control" type="number" min="1" max="65471" ng-model="product.productID" ng-pattern=" /^\d+$/" required="">
+                                                        <div ng-show="myform1.$submitted || myform1.productID.$touched">
+                                                            <div ng-show="myform1.productID.$error.required" style="color: red;">Please Enter Product ID</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group text-left">
+                                                    <label class="col-sm-4"><span style="color: red;">*</span>Locking Type</label>&nbsp;
+                                                    <div class="col-sm-6">
+                                                        <select name="lockingType" ng-model="product.productLockingType" ng-options="itemk for itemk in LockingType_selects" ng-init="product.productLockingType='HL'"  style="width: 175px" required=""></select>
+                                                        <div ng-show="myform1.$submitted || myform1.lockingType.$touched">
+                                                            <div ng-show="myform1.lockingType.$error.required" style="color: red;">Please Select Product LockingType</div>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                </div>
+
+                                            <button class="btn btn-default btn-xs" data-toggle="modal" data-target="#showFeature" style="margin-bottom: 5px;">Select Feature</button>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <div class="form-group col-sm-10 text-left" style="float:left;margin-bottom: -5px">
+                                                <br>
+                                                <label class="control-label">Description:</label>
+                                                <div>
+                                                    <textarea placeholder="Description" style="width: 250px; height: 45px;" class="form-control" ng-model="product.productDescription"></textarea>
+                                                </div>
+                                                <div style="margin-top: 20px;" class="animate-switch-container" ng-switch on="product.productLockingType">
+                                                    <div ng-switch-when="HL">
+                                                        <label>
+                                                            <input type="checkbox" ng-model="product.use_vclock">&nbsp;&nbsp;Use Virtual Clock</label>
+                                                    </div>
+                                                    <div ng-switch-when="SL-AdminMode">
+                                                        <label>Clone Protection :</label>
+                                                        <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <label>Physical Machine:</label>
+                                                        <select ng-model="product.physical_machine"  ng-init="product.physical_machine='PMType1'">
+                                                            <option value="PMType1">PMType1</option>
+                                                            <option value="PMType2">PMType2</option>
+                                                            <option value="FQDN">FQDN</option>
+                                                            <option value="Disable">Disable</option>
+                                                        </select>
+                                                        <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <label>Virtual Machine:</label>&nbsp;&nbsp;&nbsp;
+                                                        <select ng-model="product.virtual_machine" ng-init="product.virtual_machine='VMType1'">
+                                                            <option value="VMType1">VMType1</option>
+                                                            <option value="FQDN">FQDN</option>
+                                                            <option value="Disable">Disable</option>
+                                                        </select>
+                                                    </div>
+                                                    <div ng-switch-when="SL-UserMode">
+                                                        <label>Clone Protection :</label>
+                                                        <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <label>Physical Machine:</label>
+                                                        <select ng-model="product.physical_machine" ng-init="product.physical_machine='PMType1'">
+                                                            <option value="PMType1">PMType1</option>
+                                                            <option value="PMType2">PMType2</option>
+                                                            <option value="FQDN">FQDN</option>
+                                                            <option value="Disable">Disable</option>
+                                                        </select>
+                                                        <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <label>Virtual Machine:</label>&nbsp;&nbsp;&nbsp;
+                                                        <select ng-model="product.virtual_machine" ng-init="product.virtual_machine='VMType1'">
+                                                            <option value="VMType1">VMType1</option>
+                                                            <option value="FQDN">FQDN</option>
+                                                            <option value="Disable">Disable</option>
+                                                        </select>
+                                                    </div>
+                                                    <div ng-switch-when="HL or SL-AdminMode">
+                                                        <label>Clone Protection :</label>
+                                                        <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <label>Physical Machine:</label>
+                                                        <select ng-model="product.physical_machine" ng-init="product.virtual_machine='PMType1'">
+                                                            <option value="PMType1">PMType1</option>
+                                                            <option value="PMType2">PMType2</option>
+                                                            <option value="FQDN">FQDN</option>
+                                                            <option value="Disable">Disable</option>
+                                                        </select>
+                                                        <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <label>Virtual Machine:</label>&nbsp;&nbsp;&nbsp;
+                                                        <select ng-model="product.virtual_machine" ng-init="product.virtual_machine='VMType1'">
+                                                            <option value="VMType1">VMType1</option>
+                                                            <option value="FQDN">FQDN</option>
+                                                            <option value="Disable">Disable</option>
+                                                        </select>
+                                                        <br>
+                                                        <label>
+                                                            <input type="checkbox" ng-model="product.use_vclock">&nbsp;&nbsp;Use Virtual Clock</label>
+                                                    </div>
+                                                    <div ng-switch-when="HL or SL-AdminMode or SL-UserMode">
+                                                        <label>Clone Protection :</label>
+                                                        <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <label>Physical Machine:</label>
+                                                        <select ng-model="product.physical_machine" ng-init="product.virtual_machine='PMType1'">
+                                                            <option value="PMType1">PMType1</option>
+                                                            <option value="PMType2">PMType2</option>
+                                                            <option value="PMType3">PMType3</option>
+                                                            <option value="FQDN">FQDN</option>
+                                                            <option value="disable">Disable</option>
+                                                        </select>
+                                                        <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <label>Virtual Machine:</label>&nbsp;&nbsp;&nbsp;
+                                                        <select ng-model="product.virtual_machine" ng-init="product.virtual_machine='VMType1'">
+                                                            <option value="VMType1">VMType1</option>
+                                                            <option value="FQDN">FQDN</option>
+                                                            <option value="Disable">Disable</option>
+                                                        </select>
+                                                        <br>
+                                                        <label>
+                                                            <input type="checkbox" ng-model="product.use_vclock">&nbsp;&nbsp;Use Virtual Clock</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row" style="border-bottom:thick grey">
+                                        <div class="col-lg-12" style="margin-top:10px;">
+                                            <div>
+                                                <div class="col-sm-12">
+                                                    <div class="col-sm-12">
+                                                        <div>
+                                                            <div>
+                                                                <div class="body1 row">
+                                                                    <ul class="tabs">
+                                                                        <li>
+                                                                            <input type="radio" name="tabs" id="tab1" checked />
+                                                                            <label for="tab1">Selected Features</label>
+                                                                            <div id="tab-content1" class="tab-content" style="height: 190px">
+                                                                                <div style="height: 180px;width:830px; margin-bottom: 0px" class="table table-responsive" ng-init="togle=true">
+                                                                                    <table id="prdctTable" ng-show="togle" class="table table-bordered table-responsive table-hover table-condensed" style="margin-bottom: 0px;">
+                                                                                        <thead>
+                                                                                        <tr></tr>
+                                                                                        </thead>
+                                                                                        <tbody>
+                                                                                        <tr>
+                                                                                            <td colspan="7">
+                                                                                                <div style="padding: 22px;background-color: white">
+                                                                                                    <div style="padding: 22px; background-color: whitesmoke">
+                                                                                                        <div style="padding: 24px; background-color: white">
+                                                                                                            <center>No Data in Table. Please Select Features.</center>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                    <table id="productTable" ng-show="toggle" class="table table-striped table-bordered table-responsive table-hover table-condensed table-fixed" style="margin-bottom: 1px;">
+                                                                                        <thead style="font-weight: 300;font-size: 12px">
+                                                                                        <tr>
+                                                                                            <th>ID</th>
+                                                                                            <th style="width: 100px;">Feature Name</th>
+                                                                                            <th style="width:150px;">License Type</th>
+                                                                                            <th>Concurrency</th>
+                                                                                            <th>Accessibility</th>
+                                                                                            <th style="width:75px">Actions</th>
+                                                                                        </tr>
+                                                                                        </thead>
+                                                                                        <tbody>
+                                                                                        <tr ng-model="name" ng-repeat="contact in productArray" class="selected-item">
+                                                                                            <td>{{contact.featureID}}</td>
+                                                                                            <td>{{contact.featureName}}</td>
+                                                                                            <td>
+                                                                                                <span ng-if="contact.perpetual">Perpetual<br></span>
+                                                                                                <span ng-if="contact.expiration_date">Expiration Date : {{contact.expiration_date | date:'yyyy-MM-dd' }}<br></span>
+                                                                                                <span ng-if="contact.execution_count">Execution Count : {{contact.execution_count}}<br></span>
+                                                                                                <span ng-if="contact.days_to_expiration">Time Period : {{contact.days_to_expiration}}</span>
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <span ng-if="contact.concurrentInstances">Concurrent Instances : {{contact.concurrentInstances}}<br></span>
+                                                                                                <span ng-if="contact.counts">Unlimited Concurrency : {{contact.counts}}<br></span>
+                                                                                                <span ng-if="contact.countCriteria">Count Criteria : {{contact.countCriteria}}</span>
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <span ng-if="contact.remotedesktop">Remote Desktop : {{contact.remotedesktop}}<br></span>
+                                                                                                <span ng-if="contact.network">Network : {{contact.network}}<br></span>
+                                                                                                <span ng-if="contact.vm">VM : {{contact.vm}}</span>
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <!--           <button class="btn btn-xs glyphicon glyphicon-pencil btn-default" ng-click="editProductFeature1(contact.id)"></button> -->
+                                                                                                <button class="btn btn-default btn-xs glyphicon glyphicon-trash" ng-click="deleteProduct(contact.id)"></button>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+
+                                                                        <li>
+                                                                            <input type="radio" name="tabs" id="tab2" />
+                                                                            <label for="tab2">Memory</label>
+                                                                            <div id="tab-content2" class="tab-content table-responsive table" style="height: 200px">
+                                                                                Memory Type:
+                                                                                <select ng-model="memType" style="width:150px;" ng-init="memType='ro_memory_segment'">
+                                                                                    <option value="ro_memory_segment">Read-Only Memory</option>
+                                                                                    <option value="rw_memory_segment">Read/Write Memory</option>
+                                                                                </select>&nbsp;&nbsp;&nbsp;
+                                                                                <input type="checkbox" ng-checked="true">&nbsp;&nbsp;Hex Address&nbsp;&nbsp;
+                                                                                <button class="btn btn-default btn-sm" data-toggle="modal" data-target="#newMem">New Memory</button>
+
+                                                                                <div class="box on table table-responsive" ng-show="toggle1" ng-animate="'box'">
+                                                                                    <table class="table table-responsive table-bordered table-striped table-condensed" style="margin-top: 0px;">
+                                                                                        <tr>
+                                                                                            <td colspan="7">
+                                                                                                <div style="padding: 20px;background-color: white">
+                                                                                                    <div style="padding: 20px; background-color: whitesmoke">
+                                                                                                        <div style="padding: 20px; background-color: white">
+                                                                                                            <center>No Memory. Please Define New Memory.</center>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </table>
+                                                                                </div>
+                                                                                <div class="table table-responsive" style="margin: 0;background-color: whitesmoke">
+                                                                                    <table ng-show="!toggle1" class="table table-responsive table-bordered table-striped table-condensed" style="margin-top: 10px; ">
+                                                                                        <tr>
+                                                                                            <th>Name</th>
+                                                                                            <th>Offset</th>
+                                                                                            <th>Length</th>
+                                                                                            <th>Text</th>
+                                                                                            <th>Color</th>
+                                                                                            <th>Actions</th>
+                                                                                        </tr>
+                                                                                        <tr ng-repeat="memDis in newMemDisplay">
+                                                                                            <td>{{memDis.names}}</td>
+                                                                                            <td>{{memDis.offsets}}</td>
+                                                                                            <td>{{memDis.lengths}}</td>
+                                                                                            <td>{{memDis.texts}}</td>
+                                                                                            <td>{{memDis.colors}}</td>
+                                                                                            <td>
+                                                                                                <button class="btn btn-default glyphicon glyphicon-trash btn-xs" ng-click="deleteMem(memDis.names)"></button>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </table>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+
+                                                                        <li>
+                                                                            <input type="radio" name="tabs" id="tab3">
+                                                                            <label for="tab3">Memory Map</label>
+                                                                            <div id="tab-content3" class="tab-content" style="height: 190px">
+                                                                                <div class="box on" ng-show="toggle1" ng-animate="'box'" style="height: 170px;">
+                                                                                    <table class="table table-responsive table-bordered table-striped table-condensed">
+                                                                                        <tr>
+                                                                                            <td>
+                                                                                                <div style="padding: 12px;background-color: white">
+                                                                                                    <div style="padding: 18px; background-color: whitesmoke">
+                                                                                                        <div style="padding: 18px; background-color: white">
+                                                                                                            <br>
+                                                                                                            <center>No Memory Map. Please Define Memory First.</center>
+                                                                                                            <br>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </td>
+                                                                                        <tr>
+                                                                                    </table>
+                                                                                </div>
+
+                                                                                <div ng-hide="toggle1" class="table table-responsive panel panel-body" ng-show="items.length > 0" style="padding: 10px;">
+                                                                                    <div class="view view-offset">
+                                                                                        <b ng-repeat="pos in positions">{{pos}}</b>
+                                                                                    </div>
+                                                                                    <div class="view view-hex">
+                                                                                        <span ng-repeat="item in items track by $index" ng-class="{current: current == $index + offset}" ng-click="setCurrent($index + offset)">{{toHex(item, 2)}}</span>
+                                                                                    </div>
+                                                                                    <div class="view view-char">
+                                                                                        <span ng-repeat="item in items track by $index" ng-class="{current: current == $index + offset}" ng-click="setCurrent($index + offset)">{{toChar(item)}}</span>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </li>
+                                                                    </ul>
+                                                                    <br style="clear: both;" />
+                                                                </div>
+                                                                <br>
+                                                                <br>
+                                                                <br>
+                                                                <br>
+                                                                <br>
+                                                                <br>
+                                                                <br>
+                                                                <br>
+                                                                <br>
+                                                                <br>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer" style="background-color:#919191;padding: 10px;">
+                                    <button type="button" class="btn btn-warning btn-sm" ng-disabled="myform1.$invalid" ng-click="addProduct(product,productArray,newMemDisplay,memType,myform1)">Add Product</button>
+                                    <button type="button" class="btn btn-default btn-sm" ng-click="closeProduct(product,productArray,myform1)">Close</button><span style="margin-right: 10px;"></span>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="table table-responsive foo col-sm-8 text-left" style="margin-bottom: 0px;height: 390px;width: 66%">
+                    <input type="text" class="form-control col-sm-6" placeholder="Search Product..." ng-model="searchText" style="margin-left:1px;" />
+                    <br>
+                    <br>
+                    <div style="height: 345px;">
+                        <table frame="box" bordercolor="#DFCBCB" class="table table-responsive table-striped table-condensed table-hover" style="max-height: 345px; margin-bottom: 0px;">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th data-align="left" style="width: 80px">ID</th>
+                            <th data-align="left">Name</th>
+                            <th data-align="left">Locking Type</th>
+                            <th data-align="left">Status</th>
+                            <th data-align="left" style="width: 100px">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody class="text-left">
+                        <tr class="selectme" ng-click="showDetails(getProduct._id)" ng-repeat-start="getProduct in productDB | filter : searchText">
+                            <!-- <script>
+                        $('.selectme input:checkbox').click(function() {
+                            $('.selectme input:checkbox').not(this).prop('checked', false);
+                        });
+                    </script>
+                    -->
+                            <td class="selectme">
+                                <button ng-if="getProduct.expanded" ng-click="getProduct.expanded = false;" class="btn btn-default btn-xs glyphicon glyphicon-triangle-bottom" style="background-color: Transparent;background-repeat:no-repeat;border: none;cursor:pointer;overflow: hidden;outline:none;"></button>
+                                <button ng-if="!getProduct.expanded" ng-click="getProduct.expanded = true;" class="btn btn-default btn-xs glyphicon glyphicon-triangle-right" style="background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;"></button>
+                            </td>
+                            <td>{{getProduct.productID}}</td>
+                            <td>{{getProduct.productName}}</td>
+                            <td>{{getProduct.productLockingType}}</td>
+                            <td><span ng-if="getProduct.flag == 'false' ">Draft</span><span ng-if="getProduct.flag == 'true' ">In-Used</span>
+                            </td>
+                            <td style="width: 100px">
+                                <button class="btn btn-default glyphicon glyphicon-pencil btn-xs" data-toggle="modal" data-target="#editProduct" ng-click="editProduct(getProduct._id)"></button>&nbsp;
+                                <button class="btn btn-default glyphicon glyphicon-trash btn-xs" ng-disabled="getProduct.flag=='true'" ng-click="removeProduct(getProduct._id)"></button>
+
+                                <div class="btn-group" style="overflow: visible;">
+                                    <button type="button" class="btn btn-default btn-xs glyphicon glyphicon-menu-hamburger" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="overflow: visible">
+
+                                    </button>
+                                    <ul class="dropdown-menu" style="overflow: visible;z-index: 100;">
+                                        <li> <a href="#provisional " ng-click="provisional(getProduct._id)" data-toggle="modal" data-target="#provisional">Provisional</a>
+                                        </li>
+                                        <li> <a href="#modification" ng-click="modification(getProduct._id)" data-toggle="modal" data-target="#modification">Modification</a>
+                                        </li>
+                                        <li> <a href="#cancellation" ng-click="cancellation(getProduct._id)" data-toggle="modal" data-target="#cancellation">Cancellation</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr ng-if="getProduct.expanded && !getProduct.provisional && !getProduct.modify && !getProduct.Cancel" style="height: 20px;background-color: rgba(204, 238, 248, 0.78)">
+                            <td style="background-color: whitesmoke; padding: 2px" colspan="6">
+                                <div>
+                                    <center>No Variant Found {{getProduct.provisional.length}}</center>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr ng-if="getProduct.expanded" ng-repeat="nested in getProduct.provisional" style="height: 20px;background-color: rgba(204, 238, 248, 0.78);padding: 2px">
+                            <td style="background-color: white;border: none;padding: 2px"></td>
+                            <td style="border-left: medium;border-left-width: 2px;padding: 2px">{{nested.id}}</td>
+                            <td style="padding: 2px">{{nested.name}}</td>
+                            <td ng-if="nested.enforcement_type">{{nested.enforcement_type}}(Provisional)</td>
+                            <td style="width: 100px;padding: 2px">
+                            </td>
+                            <td>
+                                <button data-ng-click="provisionTrash(getProduct._id, nested)" class="btn-xs btn btn-default glyphicon glyphicon-trash"></button>
+                            </td>
+                        </tr>
+                        <tr ng-if="getProduct.expanded" ng-repeat="nest in getProduct.modify" style="height: 20px;background-color: rgba(177, 233, 241, 0.78);padding: 2px">
+                            <td style="background-color: white;border: none;padding: 2px"></td>
+                            <td style="border-left: medium;border-left-width: 2px;padding: 2px">{{nest.id}}</td>
+                            <td style="padding: 2px">{{nest.name}}</td>
+                            <td ng-if="nest.enforcement_type">{{nest.enforcement_type}}(Modified)</td>
+                            <td style="width: 100px;padding: 2px">
+                            </td>
+                            <td>
+                                <button data-ng-click="modifyTrash(getProduct._id, nest)" class="btn-xs btn btn-default glyphicon glyphicon-trash"></button>
+                            </td>
+                        </tr>
+                        <tr ng-if="getProduct.expanded" ng-repeat-end="" ng-repeat="nest in getProduct.Cancel" style="height: 20px;background-color: rgba(177, 233, 241, 0.78);padding: 2px">
+                            <td style="background-color: white;border: none;padding: 2px"></td>
+                            <td style="border-left: medium;border-left-width: 2px;padding: 2px">{{nest.id}}</td>
+                            <td style="padding: 2px">{{nest.name}}</td>
+                            <td ng-if="nest.enforcement_type">{{nest.enforcement_type}}(Cancelled)</td>
+                            <td style="width: 100px;padding: 2px">
+                            </td>
+                            <td>
+
+                                <button class="btn btn-default btn-xs glyphicon glyphicon-trash" data-ng-click="cancelTrash(getProduct._id, nest)"></button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+                <div class="table-responsive col-sm-4" style="margin-left:0px;height: 420px;">
+                    <table class="table table-bordered table-responsive table-striped" style="background-color: #FFFFFF">
+                        <tr>
+                            <th>Product Details</th>
+                        </tr>
+                        <tr style="height: 350px;">
+                            <td>
+                                <ul class="tree" ng-repeat='m in demoarr'>
+                                    <li>
+                                        <input type=checkbox class="ins" ng-model=show ng-class='{open:show}'><b>Product</b>
+                                    <li ng-show=show>
+                                        <ul>
+                                            <li>
+                                                <lable>Product Name</lable> : {{m.productName}}</li>
+                                            <li>
+                                                <lable>Product ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</lable> :&nbsp;{{m.productID}}</li>
+                                            <li>
+                                                <lable>Locking Type &nbsp;&nbsp;:</lable> {{m.productLockingType}}</li>
+                                            <li>
+                                                <label>Memory Type&nbsp; :</label>{{m.memoryType}}</li>
+                                            <li role="separator" class="divider">
+                                                <ul role="separator" class="divider">
+                                                    <input type=checkbox ng-model=show1 id="ins" class="ins" ng-class='{open:show1}'>
+                                                    <lable><b>Features</b></lable>
+                                                    <ul ng-show=show1 ng-repeat='m1 in demoarr[0].feature'>
+                                                        <li class="last">
+                                                            <input id="ins" class="ins" type=checkbox ng-model=show2 ng-class='{open:show2}'><span style="color: rgba(105, 53, 78, 0.84)"> <b>{{m1.featureName}}{{' [ ID:'+ m1.featureID+']'}}</b></span>
+                                                        <li ng-show="show2">
+                                                            <ul>
+                                                                <li><span ng-show="m1.execution_count">&nbsp;&nbsp;&nbsp;{{'Execution Count - ' + m1.execution_count}}</span>
+                                                                </li>
+                                                                <li><span ng-show="m1.perpetual">&nbsp;&nbsp;{{'License Type : ' + m1.perpetual}}</span>
+                                                                </li>
+                                                                <li><span ng-show="m1.days_to_expiration">&nbsp;&nbsp;{{' Days to Expiration  - ' + m1.days_to_expiration}}</span>
+                                                                </li>
+                                                                <li><span ng-show="m1.expiration_date">&nbsp;&nbsp;Expiration Date :{{m1.expiration_date | date:'yyyy-MM-dd'}}</span>
+                                                                </li>
+                                                                <li role="separator" class="divider"><span style="color: rgba(105, 53, 78, 0.84)"><b>&nbsp; Concurrency:</b></span>
+                                                                    <br>&nbsp;&nbsp;&nbsp;
+                                                                    <span ng-show="m1.counts">&nbsp;Unlimited : True</span>
+                                                                    <span ng-show="m1.concurrentInstances">&nbsp;&nbsp;{{'Instances : ' + m1.concurrentInstances}}</span>
+                                                                    <span ng-show="m1.countCriteria"><br>&nbsp;&nbsp;&nbsp;&nbsp;Criteria : {{m1.countCriteria}}</span>
+                                                                </li>
+                                                                <li role="separator" class="divider"><span style="color: rgba(105, 53, 78, 0.84)"><b>&nbsp;&nbsp;Accessibility :</b></span>
+                                                                    <br> &nbsp;&nbsp;
+                                                                    <span ng-show="m1.remotedesktop">&nbsp;{{' Remote Desktop - ' + m1.remotedesktop}}<br></span>
+                                                                    <span ng-show="m1.network">&nbsp;&nbsp;&nbsp;&nbsp;{{' Network Access - ' + m1.network}}<br></span>
+                                                                    <span ng-show="m1.vm">&nbsp;&nbsp;&nbsp;&nbsp;{{' Virtual Machine - ' + m1.vm}}</span>
+                                                                </li>
+                                                            </ul>
+                                                        <li>
+                                                        </li>
+                                                    </ul>
+                                                </ul>
+                                            </li>
+                                    </li>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+<div class="modal fade" id="provisional" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:#919191;color:#FFF;padding:10px;">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Provisional Product</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row" style="margin-top: 10px;">
+                    <div class="col-md-10 col-sm-offset-1">
+                        <form class="form-horizontal ng-pristine ng-valid" name="myform_p">
+
+                            <table>
+                                <tr>
+                                    <td><label style="font-weight: 500">Base name :</label></td>
+                                    <td><span style="margin-left: 10px;"></span>
+                                        <label>{{provision[0].productName}}</label></td>
+                                </tr>
+                                <tr>
+                                    <td><label style="font-weight: 500">Product Name:</label></td>
+                                    <td><span style="margin-left: 10px;">
+                                        <input type="text" name="BaseProduct1" ng-maxlength="50" ng-minlength="1" ng-model="pro_BaseProduct" required=""></span>
+                                        <div ng-show="myform_p.$submitted || myform_p.BaseProduct1.$touched">
+                                            <div ng-show="myform_p.BaseProduct1.$error.required" style="color: red;">&nbsp;&nbsp;Provisional Product Name Required!</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td> <label style="font-weight: 500">Product ID :</label></td>
+                                    <td> &nbsp;&nbsp;&nbsp;{{provision[0].productID}}</td>
+                                </tr>
+                                <tr>
+                                    <td> <label style="font-weight: 500">Locking Type :</label></td>
+                                    <td> &nbsp;&nbsp;&nbsp;{{provision[0].productLockingType}}</td>
+                                </tr>
+                            </table>
+                        <button class="btn btn-default btn-xs" style="margin-top: 5px;margin-bottom: 5px;" data-toggle="modal" data-target="#AddProvFeature">+Add More Features</button>
+                        <br>
+                        <table class="table table-bordered table-responsive table-condensed">
+                            <tr>
+                                <th>Feature ID</th>
+                                <th>Feature Name</th>
+                                <th>License Terms</th>
+                                <th>Actions</th>
+                            </tr>
+                            <tr ng-repeat="loop in arrProv | itemsPerPage : 8">
+                                <td>{{loop.featureID}}</td>
+                                <td>{{loop.featureName}}</td>
+                                <td>Provisional</td>
+                                <td>
+                                    <button class="btn btn-default btn-xs glyphicon glyphicon-pencil" ng-click="editProv(loop.featureID)" data-toggle="modal" data-target="#provFeatEdit"></button>
+                                    <button class="btn btn-default btn-xs glyphicon glyphicon-trash" ng-click="delProv(loop.featureID)"></button>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="background-color:#919191;padding: 10px;">
+                <button type="button" class="btn btn-warning btn-sm" ng-disabled="myform_p.$invalid" ng-click="addProvisionalProduct(provision[0]._id,provision[0].productName,provision[0].productID,provision[0].productLockingType, provision[0].memoryType,provision[0].memory, arrProv,myform_p)">Add Provisional</button>
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" ng-click="closeBtn(myform_p)">Close</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="AddProvFeature" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:#919191;color: white;padding: 10px;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title" id="myModalLabel2">&nbsp;&nbsp;Select Features</h5>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <input type="text" class="form-control" placeholder="Search Features..." ng-model="searchText" style="margin-left:1px;" />
+                    <br>
+                    <div style="height: 265px;">
+                    <table class="table table-responsive table-bordered table-striped table-condensed table-hover">
+                        <tr>
+                            <th>Feature ID&nbsp;</th>
+                            <th>&nbsp;Feature Name&nbsp;</th>
+                            <th>&nbsp;Feature Description</th>
+                            <th>Actions</th>
+                        </tr>
+                        <tr dir-paginate="feature in productFeature | itemsPerPage:6">
+                            <td>&nbsp;{{feature.featureID}}</td>
+                            <td>{{feature.featureName}}</td>
+                            <td>{{feature.featureDescription}}</td>
+                            <td>&nbsp;
+                                <button class="btn btn-default btn-xs" data-dismiss="modal" data-toggle="modal" data-target="#provFeat" ng-click="provMoreFeature(feature)">Add</button>
+                            </td>
+                        </tr>
+                    </table>
+                    </div>
+                    <style>
+                        .pagination .active a{
+                            background-color: #C1C2C4;
+                            color: #000;
+                            border-color: #C1C2C4;
+                        }
+                        .pagination .active a:hover {
+                            background-color: #5f7c74;
+                            color: white;
+                            border-color: #5f7c74;
+                        }
+                        .pagination {
+                            margin: 0px;
+                            margin-top: -10px;
+                            margin-left: 34%;
+                        }
+                        .pagination .active a:focus, .pagination .active a:hover, .pagination .active span, .pagination .active span:focus, .pagination .active span:hover{
+                            z-index: 2;
+                            color: white;
+                            border-color: #5f7c74;
+                            background-color: #5f7c74;
+                            cursor: default;
+                        }
+                    </style>
+                    <dir-pagination-controls max-size="5" direction-link="true" boundary-links="true"></dir-pagination-controls>
+                    </div>
+            </div>
+            <div class="modal-footer" style="background-color:#919191;padding: 10px;">
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modification" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:#919191;color: white;padding:10px;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Modify Product</h4>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <h4>&nbsp;&nbsp;&nbsp;Create Modify Product</h4>
+                </div>
+                <form class="form-horizontal ng-pristine ng-valid" name="myform_m">
+                <div style="margin-left: 60px;">
+                    <label>
+                        <span style="color: red">*</span>Base Product :</label>
+                    <label style="margin-left: 10px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{modifyAttr[0].productName}}</label>
+                    <br>
+                    <label><span style="color: red">*</span>Product Name :</label>
+                    <input type="text" name="BaseProduct2" placeholder="Product Name" style="margin-left: 25px; width: 34%" ng-model="modifyAttr[0].name" ng-minlength="1" ng-maxlength="50" required=""><br>
+                    <div ng-show="myform_m.$submitted || myform_m.BaseProduct2.$touched">
+                        <div ng-show="myform_m.BaseProduct2.$error.required" style="color: red;margin-left:125px;">Modified Product Name Required!</div>
+                    </div>
+                    <label><span style="color: red">*</span>Locking Type:</label>
+                    <select style="margin-left: 33px;width: 34%;" ng-model="modifyAttr[0].productLockingType" disabled>
+                        <option value="HL">HL</option>
+                        <option value="SL-AdminMode">SL-AdminMode</option>
+                        <option value="SL-UserMode">SL-UserMode</option>
+                        <option value="HL or SL-AdminMode">HL or SL-AdminMode</option>
+                    </select>
+                    <div ng-switch on="modifyAttr[0].productLockingType">
+                        <div ng-switch-when="HL" style="margin-left: 130px;margin-top: 10px;margin-bottom: 10px;">
+                            <label>
+                                <input type="checkbox">&nbsp;&nbsp;Upgrade to Driverless</label>
+                            <br>
+                            <label>
+                                <input type="checkbox">&nbsp;&nbsp;Use Virtual Clock</label>
+                        </div>
+                        <div ng-switch-when="SL-AdminMode" style="margin-left: 130px;margin-top: 10px;margin-bottom: 10px;">
+                            <label>
+                                <input type="checkbox">&nbsp;&nbsp;Upgrade to Driverless</label>
+                            <br>
+                            <label>
+                                <input type="checkbox">&nbsp;&nbsp;Use Virtual Clock</label>
+                        </div>
+                        <div ng-switch-when="SL-UserMode" style="margin-left: 130px;margin-top: 10px;margin-bottom: 10px;">
+                            <label>
+                                <input type="checkbox">&nbsp;&nbsp;Upgrade to Driverless</label>
+                            <br>
+                            <label>
+                                <input type="checkbox">&nbsp;&nbsp;Use Virtual Clock</label>
+                        </div>
+                        <div ng-switch-when="HL or SL-AdminMode" style="margin-left: 130px;margin-top: 10px;margin-bottom: 10px;">
+                            <label>
+                                <input type="checkbox">&nbsp;&nbsp;Upgrade to Driverless</label>
+                            <br>
+                            <label>
+                                <input type="checkbox">&nbsp;&nbsp;Use Virtual Clock</label>
+                        </div>
+                    </div>
+
+                </div>
+                <button class="btn-xs btn-default btn" style="margin-top: 10px;" data-toggle="modal" data-target="#addModiFeature">+Add more Feature</button>
+                <br>
+                <br>
+                <table class="table table-responsive table-striped table-condensed table-bordered" style="margin-right: 15px;margin-bottom: 15px;">
+                    <tr>
+                        <th>Feature ID</th>
+                        <th>Feature Name</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                    <tr ng-repeat="attrs in modifyArr">
+
+                        <td>{{attrs.featureID}}</td>
+                        <td>{{attrs.featureName}}</td>
+                        <td ng-if="attrs.cancelFeature == 'Cancelled'">Cancelled</td>
+                        <td ng-if="!attrs.cancelFeature">&nbsp;.</td>
+                        <td style="color: red">
+                            <a style="color: red;cursor:pointer" data-toggle="modal" data-target="#modifyAction" ng-click="modifyActionFeature(attrs)">Modify</a>&nbsp;&nbsp;
+                            <a style="color: red;cursor: pointer;" data-toggle="modal" data-target="#overwriteAction" ng-click="overwriteAction(attrs)">Overwrite</a>&nbsp;&nbsp;
+                            <label style="color: red;cursor: pointer;"><input type="checkbox" style="color: red;cursor: pointer;" ng-true-value="'Cancelled'" ng-model="attrs.cancelFeature">&nbsp;Cancel</label>&nbsp;&nbsp;
+                        </td>
+                    </tr>
+                </table>
+                <br>
+                <br>
+            </div>
+            <div class="modal-footer" style="background-color:#919191;padding: 10px;">
+                <button type="button" class="btn btn-warning btn-sm" ng-disabled="(myform_m.$invalid)"  ng-click="addModifyPrdct(modifyAttr[0]._id, modifyAttr[0].productID, modifyAttr[0].name, modifyAttr[0].productLockingType, modifyAttr[0].memoryType, modifyAttr[0].memory, modifyArr)">Modify Product</button>
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" ng-click="closeBtn(myform_m)">Close</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="provFeat" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:#919191;color: white;padding:10px;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title" id="myModalLabel1">Add Features</h5>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <h4>&nbsp;&nbsp;&nbsp;Features</h4>
+                </div>
+                <div style="margin-left: 60px;">
+                    <form name="provisionalFeature" novalidate>
+                    <label style="color: #414446;font-weight: 500">
+                        <span style="color: red">*</span>Feature Name:</label>
+                    <input type="text" placeholder="Feature Name" style="margin-left: 40px; width:34%" ng-model="provFeats.featureName" disabled>
+                    <br>
+                        <label style="color: #414446;font-weight: 500">
+                            <span style="color: red">*</span>Feature ID:</label>
+                        <input type="text" placeholder="Feature ID" style="margin-left: 63px; width:34%" ng-model="provFeats.featureID" disabled>
+                        <br>
+                    <label style="margin-top: 5px;color: #414446;font-weight: 500">
+                        <span style="color: red">*</span>License Type:</label>
+                    <select style="margin-left: 45px;width: 34%" ng-model="provFeats.pro_license_type" name="prov_licenseType" ng-init="provFeats.pro_license_type='perpetual'" required="">
+                        <option value="perpetual" selected>Perpetual</option>
+                        <option value="days">Days To Expiration</option>
+                    </select>
+                        <div ng-show="provisionalFeature.$submitted || provisionalFeature.prov_licenseType.$touched">
+                            <div ng-show="provisionalFeature.prov_licenseType.$error.required" style="color: red;margin-left:135px;">Select License Type</div>
+                        </div>
+                    <div ng-switch on="provFeats.pro_license_type">
+                        <div ng-switch-when="days">
+                            <label style="color: #414446;font-weight: 500">
+                                <span style="color: red">*</span>Number of Days:</label>
+                            <input type="number" placeholder="Days" style="margin-left: 28px" ng-max="90" ng-min="1" onkeypress="return isNumberKey(event)" name="prov_days" ng-model="provFeats.days_to_expiration">
+                            <div ng-show="provisionalFeature.$submitted || provisionalFeature.prov_days.$touched">
+                                <div ng-show="provisionalFeature.prov_days.$error.required" style="color: red;">Please Enter Days</div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <label><b>Accessibility</b></label>
+                    <br>
+                    <span style="margin-left: 20px;"></span>
+                    <label>
+                        <input type="checkbox" ng-model="provFeats.remotedesktop" ng-true-value="'Yes'" ng-false-value="'No'">&nbsp;&nbsp;Remote Desktop</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label>
+                        <input type="checkbox" ng-modal="provFeats.vm" ng-true-value="'Yes'" ng-false-value="'No'">&nbsp;&nbsp;Virtual Machine</label>
+                    <br><br><br>
+                </div>
+            </div>
+            <div class="modal-footer" style="background-color:#919191;padding: 10px;">
+                <button type="button" class="btn btn-warning btn-sm" ng-click="provFeatn(provFeats,provisionalFeature)" ng-disabled="provisionalFeature.$invalid">Add Feature</button>
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="provFeatEdit" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:#919191;color: white;padding:10px;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title" id="myModalLabel1">Add Features</h5>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <h4>&nbsp;&nbsp;&nbsp;Features</h4>
+                </div>
+                <div style="margin-left: 60px;">
+                    <label style="color: #414446;font-weight: 500">
+                        <span style="color: red">*</span>Feature Name:</label>
+                    <input type="text" placeholder="Feature Name" style="margin-left: 40px; width:34%" ng-model="provFeats.featureName" ng-disabled="true">
+                    <br>
+                    <label style="margin-top: 5px;color: #414446;font-weight: 500">
+                        <span style="color: red">*</span>License Type:</label>
+                    <select style="margin-left: 45px;width: 34%" ng-model="provFeats.pro_license_type" ng-init="provFeats.pro_license_type='perpetual'">
+                        <option value="perpetual">Perpetual</option>
+                        <option value="days">Days To Expiration</option>
+                    </select>
+                    <br>
+                    <div ng-switch on="provFeats.pro_license_type">
+                        <div ng-switch-when="days">
+                            <label style="color: #414446;font-weight: 500">
+                                <span style="color: red">*</span>Number of Days:</label>
+                            <input type="number" placeholder="Days" style="margin-left: 28px" ng-model="provFeats.days_to_expiration" >
+                            <br>
+                        </div>
+                    </div>
+                    <br>
+                    <label><b>Accessibility</b>
+                    </label>
+                    <br>
+                    <span style="margin-left: 20px;"></span>
+                    <label>
+                        <input type="checkbox" ng-model="provFeats.remotedesktop" ng-true-value="'Yes'" ng-false-value="'No'">&nbsp;&nbsp;Remote Desktop</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label>
+                        <input type="checkbox" ng-modal="provFeats.vm" ng-true-value="'Yes'" ng-false-value="'No'">&nbsp;&nbsp;Virtual Machine</label>
+                    <br><br><br>
+                </div>
+            </div>
+            <div class="modal-footer" style="background-color:#919191;padding: 10px;">
+                <button type="button" class="btn btn-warning btn-sm" ng-click="provFeatnEdit(provFeats)" data-dismiss="modal">Add Feature</button>
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editProduct" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:#919191;color:#FFF;padding: 10px;">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Edit Product</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-6" style="margin-left: 25px">
+                        <br>
+                        <form class="form-horizontal ng-pristine ng-valid" name="myform2">
+                            <div class="form-group text-left" style="margin-bottom=10px;">
+                                <label class="col-sm-4">
+                                    <span style="color: red;">*</span>Base Product:</label>
+                                <div class="col-sm-6">
+                                    <input placeholder="Product Name" class="form-control" style="height:27px;width:175px;margin-bottom: 0px;" ng-model="product1.productName" type="text" ng-maxlength="50" ng-minlength="1" required>
+                                     <span style="color:red" ng-show="myform2.BaseProduct1.$dirty && myform2.BaseProduct1.$invalid">
+	                                 <span ng-show="myform2.BaseProduct1.$error.required || myform2.BaseProduct1.$dirty && myform1.BaseProduct1.$invalid">Invalid Base Product</span></span>
+                                </div>
+                            </div>
+                            <div class="form-group text-left">
+                                <label class="col-sm-4">
+                                    <span style="color: red;">*</span>Product ID:</label>
+                                <div class="col-sm-4">
+                                    <input style="height:27px;width:175px" ng-model="product1.productID" name="productID" placeholder="Product ID" class="form-control" type="text" min="1" max="65471" ng-pattern=" /^\d+$/" required>
+                                    <span style="color:red" ng-show="myform2.productID.$dirty && myform2.productID.$invalid"><span ng-show="myform2.productID.$error.required || myform2.productID.$dirty && myform1.productID.$invalid"> Invalid Base Product</span></span>
+                                </div>
+                            </div>
+                            <div class="form-group text-left">
+                                    <label class="col-sm-4" style="margin-top: 4px;">
+                                    <span style="color: red;">*</span>Locking Type</label>&nbsp;
+                                <div class="col-sm-4">
+                                    <select style="width: 175px;margin-top: -7px; height: 27px;" ng-model="product1.productLockingType"  required>
+                                        <option value="HL">HL</option>
+                                        <option value="SL-AdminMode">SL-AdminMode</option>
+                                        <option value="SL-UserMode">SL-UserMode</option>
+                                        <option value="HL or SL-AdminMode">HL or SL-AdminMode</option>
+                                        <option value="HL or SL-AdminMode or SL-UserMode">HL or SL-AdminMode</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="form-group col-sm-6 text-left" style="float:left">
+                            <label class="control-label">Description:</label>
+                            <div>
+                                <textarea placeholder="Description" ng-model="product1.productDescription" style="width: 250px; height: 45px;" class="form-control" ng-model="product.productDescription"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 text-left" style="float:left">
+                            <div class="animate-switch-container" ng-switch on="product1.productLockingType">
+                                <div ng-switch-when="HL">
+                                    <label>
+                                        <input type="checkbox" ng-model="product1.use_vclock">&nbsp;&nbsp;Use Virtual Clock</label>
+                                </div>
+                                <div ng-switch-when="SL-AdminMode">
+                                    <label>Clone Protection :</label>
+                                    <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <label>Physical Machine:</label>
+                                    <select ng-model="product1.clone_protection_ex.physical_machine" ng-init="product1.clone_protection_ex.physical_machine='PMType1'">
+                                        <option value="PMType1">PMType1</option>
+                                        <option value="PMType2">PMType2</option>
+                                        <option value="FQDN">FQDN</option>
+                                        <option value="Disable">Disable</option>
+                                    </select>
+                                    <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <label>Virtual Machine:</label>&nbsp;&nbsp;&nbsp;
+                                    <select ng-model="product1.clone_protection_ex.virtual_machine" ng-init="product1.clone_protection_ex.virtual_machine='VMType1'">
+                                        <option value="VMType1">VMType1</option>
+                                        <option value="FQDN">FQDN</option>
+                                        <option value="Disable">Disable</option>
+                                    </select>
+                                </div>
+                                <div ng-switch-when="SL-UserMode">
+                                    <label>Clone Protection :</label>
+                                    <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <label>Physical Machine:</label>
+                                    <select ng-model="product1.clone_protection_ex.physical_machine" ng-init="product1.clone_protection_ex.physical_machine='PMType1'">
+                                        <option value="PMType1">PMType1</option>
+                                        <option value="PMType2">PMType2</option>
+                                        <option value="FQDN">FQDN</option>
+                                        <option value="Disable">Disable</option>
+                                    </select>
+                                    <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <label>Virtual Machine:</label>&nbsp;&nbsp;&nbsp;
+                                    <select ng-model="product1.clone_protection_ex.virtual_machine" ng-init="product1.clone_protection_ex.virtual_machine='VMType1'">
+                                        <option value="VMType1">VMType1</option>
+                                        <option value="FQDN">FQDN</option>
+                                        <option value="Disable">Disable</option>
+                                    </select>
+                                </div>
+                                <div ng-switch-when="HL or SL-AdminMode">
+                                    <label>Clone Protection :</label>
+                                    <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <label>Physical Machine:</label>
+                                    <select ng-model="product1.clone_protection_ex.physical_machine" ng-init="product1.clone_protection_ex.physical_machine='PMType1'">
+                                        <option value="PMType1">PMType1</option>
+                                        <option value="PMType2">PMType2</option>
+                                        <option value="FQDN">FQDN</option>
+                                        <option value="Disable">Disable</option>
+                                    </select>
+                                    <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <label>Virtual Machine:</label>&nbsp;&nbsp;&nbsp;
+                                    <select ng-model="product1.clone_protection_ex.virtual_machine" ng-init="product1.clone_protection_ex.virtual_machine='VMType1'">
+                                        <option value="VMType1">VMType1</option>
+                                        <option value="FQDN">FQDN</option>
+                                        <option value="Disable">Disable</option>
+                                    </select>
+                                </div>
+                                <div ng-switch-when="HL or SL-AdminMode or SL-UserMode">
+                                    <label>Clone Protection :</label>
+                                    <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <label>Physical Machine:</label>
+                                    <select ng-model="product1.clone_protection_ex.physical_machine" ng-init="product1.clone_protection_ex.physical_machine='PMType1'">
+                                        <option value="PMType1">PMType1</option>
+                                        <option value="PMType2">PMType2</option>
+                                        <option value="PMType3">PMType3</option>
+                                        <option value="FQDN">FQDN</option>
+                                        <option value="disable">Disable</option>
+                                    </select>
+                                    <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <label>Virtual Machine:</label>&nbsp;&nbsp;&nbsp;
+                                    <select ng-model="product1.clone_protection_ex.virtual_machine" ng-init="product1.clone_protection_ex.virtual_machine='VMType1'">
+                                        <option value="VMType1">VMType1</option>
+                                        <option value="FQDN">FQDN</option>
+                                        <option value="Disable">Disable</option>
+                                    </select>
+                                    <br>
+                                    <label>
+                                        <input type="checkbox" ng-model="product1.use_vclock">&nbsp;&nbsp;Use Virtual Clock</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" style="border-bottom:thick grey">
+                    <div class="col-lg-12" style="margin-top:10px;">
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <div class="col-md-12">
+                                    <div>
+                                        <div ng-hide="checked">
+                                            <br>
+                                            <span style="color:black" class="selected-item">Selected Items:</span>
+                                            <div style="height: 190px;width:840px; margin-bottom: 1px" class="table table-responsive">
+                                                <table id="productTable" class="table table-striped table-bordered table-hover table-condensed table-fixed" style="margin-bottom: 1px;">
+                                                    <thead style="font-weight: 300;font-size: 12px">
+                                                    <tr>
+                                                        <th>ID</th>
+                                                        <th style="width: 100px;">Feature Name</th>
+                                                        <th style="width:100px;">License Type</th>
+                                                        <th>Concurrency</th>
+                                                        <th>Accessibility</th>
+                                                        <th style="width:75px">Actions</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr ng-model="name" ng-repeat="contact in product1.feature" class="selected-item">
+                                                        <td>{{contact.featureID}}</td>
+                                                        <td>{{contact.featureName}}</td>
+                                                        <td>
+                                                            <span ng-if="contact.perpetual">{{contact.perpetual}}<br></span>
+                                                            <span ng-if="contact.expiration_date">Expiration Date: {{contact.expiration_date | date:'yyyy-MM-dd' }}<br></span>
+                                                            <span ng-if="contact.execution_count">Execution Count: {{contact.execution_count}}<br> </span>
+                                                            <span ng-if="contact.days_to_expiration">Days to Expiration: {{contact.days_to_expiration}}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span ng-if="contact.concurrentInstances">Concurrent Instances: {{contact.concurrentInstances}}<br></span>
+                                                            <span ng-if="contact.counts">Unlimited Concurrency: {{contact.counts}}<br></span>
+                                                            <span ng-if="contact.countCriteria">Count Criteria: {{contact.countCriteria}}<br></span>
+                                                        </td>
+                                                        <td>
+                                                            <span ng-if="contact.remotedesktop">Remote Desktop: {{contact.remotedesktop}}<br></span>
+                                                            <span ng-if="contact.network">Network: {{contact.network}}<br></span>
+                                                            <span ng-if="contact.vm">VM:{{contact.vm}} </span>
+                                                        </td>
+                                                        <td>
+                                                            <button class="btn btn-xs glyphicon glyphicon-pencil btn-default" ng-click="editFeature1(product1._id,product1.feature[$index].featureID)" data-toggle="modal" data-target="#modalIdedit"></button>
+                                                            <button class="btn btn-default btn-xs glyphicon glyphicon-trash" ng-click="deleteProduct2(product1._id,product1.feature[$index]._id)"></button>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <br>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="background-color:#919191;padding:10px;">
+                <button type="button" class="btn btn-warning btn-sm" data-dismiss="modal" ng-click="updateproduct(product1)">Update Product</button>
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" ng-click="closeProduct(product,productArray)">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="showFeature" role="dialoge" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:#919191;color:white;font-weight: 400;padding:9px;">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4>&nbsp;&nbsp;Select Features</h4>
+            </div>
+            <div class="modal-body col-md-12" style="background-color: white">
+                <div></div>
+                <div frame="box" class="col-md-12">
+                    <input type="text" class="form-control" placeholder="Search Features..." ng-model="searchText" style="margin-left:1px;" />
+                    <br>
+                    <div style="height: 325px;">
+                    <table class="table table-responsive table-bordered table-striped table-condensed table-hover">
+                        <tr>
+                            <th>Feature ID&nbsp;</th>
+                            <th>&nbsp;Feature Name&nbsp;</th>
+                            <th>&nbsp;Feature Description</th>
+                            <th>Actions</th>
+                        </tr>
+                        <tr dir-paginate="feature in productFeature | itemsPerPage : 8">
+                            <td>&nbsp;{{feature.featureID}}</td>
+                            <td>{{feature.featureName}}</td>
+                            <td>{{feature.featureDescription}}</td>
+                            <td>&nbsp;
+                                <button class="btn btn-default btn-xs" data-toggle="modal" data-dismiss="modal" data-target="#modalId" ng-click="configureFeature(feature)">Add</button>
+                            </td>
+                        </tr>
+                    </table>
+                    </div>
+                    <style>
+                        .pagination .active a{
+                            background-color: #C1C2C4;
+                            color: #000;
+                            border-color: #C1C2C4;
+                        }
+                        .pagination .active a:hover {
+                            background-color: #5f7c74;
+                            color: white;
+                            border-color: #5f7c74;
+                        }
+                        .pagination {
+                            margin: 0px;
+                            margin-top: -10px;
+                            margin-left: 30%;
+                        }
+                        .pagination .active a:focus, .pagination .active a:hover, .pagination .active span, .pagination .active span:focus, .pagination .active span:hover{
+                            z-index: 2;
+                            color: white;
+                            border-color: #5f7c74;
+                            background-color: #5f7c74;
+                            cursor: default;
+                        }
+
+                    </style>
+                    <dir-pagination-controls max-size="5" direction-link="true" boundary-links="true"></dir-pagination-controls>
+                    <br>
+                    <br>
+                </div>
+            </div>
+            <div class="modal-footer" style="background-color:#919191;padding:10px">
+                <button class="btn btn-warning btn-sm" data-dismiss="modal" style="margin-top: 7px;">Select</button>
+                <button class="btn btn-default btn-sm" data-dismiss="modal" style="margin-top: 7px;" ng-click="closeBtn()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalId" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content text-left">
+            <div class="modal-header" style="background-color:#919191;color:#FFF;padding:10px;">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title text-left">Define License Terms</h4>
+            </div>
+            <div class="modal-body">
+                <div style="margin-left: 30px;">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <label style="font-weight: 400">
+                                    <h4>License Terms</h4>
+                                </label>
+                                <div class="col-md-12" style="border:#D3D3D3">
+                                    <form name="featureForm" novalidate>
+                                    <table>
+                                        <tr>
+                                            <td><span style="color: red;">*</span>
+                                                <label>Feature ID:</label></td>
+                                            <td><input type="text" placeholder="Feature ID" ng-model="name.featureID" ng-disabled="true"></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span style="color: red;">*</span>
+                                                <label>Feature Name:</label>
+                                            </td>
+                                            <td> <input type="text" placeholder="Feature Name" ng-model="name.featureName" ng-disabled="true"></td>
+                                        </tr>
+                                        <tr>
+                                            <td><label>&nbsp;&nbsp;Feature Description:</label></td>
+                                            <td><input type="text" placeholder="Feature Description" name="description" ng-model="name.featureDescription" required="">
+                                                <div ng-show="featureForm.$submitted || featureForm.description.$touched">
+                                                    <div ng-show="featureForm.description.$error.required" style="color: red;">Please Enter Feature Description</div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><label style="font-weight: 400"><span style="color: red;">*</span>License Type:</label></td>
+                                            <td><select ng-model="name.licenceType" ng-options="lc for lc in LicenseType_selects" name="licenseType" style="width:100%;" ng-init="name.licenceType='perpetual'" required="">
+                                           <!--     <option value="perpetual">Perpetual</option>
+                                                <option value="Execution">Execution</option>
+                                                <option value="Expiration Date">Expiration Date</option>
+                                                <option value="Time Period">Time Period</option> -->
+                                            </select>
+                                                <div ng-show="featureForm.$submitted || featureForm.licenseType.$touched">
+                                                    <div ng-show="featureForm.licenseType.$error.required" style="color: red;">Please Select License Type</div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                    <div style="margin-left: 6%;" class="animate-switch-container" ng-switch on="name.licenceType">
+                                        <div ng-switch-when="Execution" style="margin-left: -10px;">
+                                            <label>No of Execution:</label>&nbsp;&nbsp;
+                                            <input type="number" onkeypress="return isNumberKey(event)" ng-maxlength="16777215" ng-minlength="1" ng-model="name.execution_count" name="counti" style="height: 26px;" required="">
+                                            <div ng-show="featureForm.$submitted || featureForm.counti.$touched">
+                                                <div ng-show="featureForm.counti.$error.required" style="color: red;margin-left: 115px;">Please Enter Execution Count</div>
+                                            </div>
+                                        </div>
+                                        <div ng-switch-when="Expiration Date">
+                                            <label>Expiration Date:</label>&nbsp;
+                                            <input type="date" name="dateField" ng-model="name.expiration_date" style="height: 26px;" min="2015-06-20" placeholder="DD/MM/YYYY" max="2038-01-01" required="">
+                                            <div ng-show="featureForm.$submitted || featureForm.dateField.$touched">
+                                                <div ng-show="featureForm.dateField.$error.required" style="color: red;margin-left: 115px;">Please Select Valid Date</div>
+                                            </div>
+                                            <div role="alert">
+                                                <span class="error" ng-show="myForm.dateField.$error.required" style="color: red;margin-left: 115px;">Required!</span>
+                                                <span class="error" ng-show="myForm.dateField.$error.date" style="color: red;margin-left: 115px;">Not a valid date!</span>
+                                            </div>
+                                        </div>
+                                        <div style="margin-left: 12%;" ng-switch-when="Time Period">
+                                            <label>&nbsp;&nbsp;Days:</label>&nbsp;
+                                            <input type="number" onkeypress="return isNumberKey(event)" ng-model="name.days_to_expiration" ng-maxlength="3650" ng-minlength="1" name="Days" style="height: 26px;" required="">
+                                            <div ng-show="featureForm.$submitted || featureForm.Days.$touched">
+                                                <div ng-show="featureForm.Days.$error.required" style="color: red;margin-left:55px;">Please Enter Days</div>
+                                            </div>
+                                        </div>
+                                        <div ng-switch-when="perpetual" ng-init="name.perpetual='perpetual'">
+                                            <input type="hidden" initial-value="perpetual" ng-model="name.perpetual">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div ng-init="mySwitch=false">
+                                <div class="col-md-12">
+                                    <br>
+                                    <label style="font-weight: 300;">
+                                        &nbsp;&nbsp;&nbsp;<input type="checkbox" ng-model="mySwitch" ng-disabled="product.productLockingType=='SL-UserMode'" class="ng-valid ng-dirty ng-valid-parse ng-touched">&nbsp;
+                                        <span style="font-weight: 400"><b>Enable Concurrency</b></span>
+                                    </label>
+                                    <br>
+                                    <span class="ng-pristine ng-valid">
+                                        <label style="font-weight: 300;margin-left: 50px;">
+                                            <label>
+                                                <input id="unlimited1" type="checkbox" name="con2" ng-disabled="!mySwitch" disabled="disabled" ng-true-value="'Unlimited'" ng-model="name.counts">&nbsp;&nbsp; Unlimited Concurrent</label>
+                                            <br>
+                                        </label>
+                                        <div><span ng-show="!name.counts" style="margin-left: 100px">OR</span>
+                                            <br>
+                                            <table>
+                                                <tr id="showInsta" ng-show="!name.counts">
+                                                    <td>
+                                                        <label style="margin-left: 30px">Number Instances</label>&nbsp;&nbsp;
+                                                    </td>
+                                                    <td>
+                                                        <input  onkeypress="return isNumberKey(event)" type="number" name="con4" ng-disabled="!mySwitch" disabled="disabled" ng-model="name.concurrentInstances" style="width: 175px;margin-left: 20px;">
+                                                        <div ng-show="featureForm.$submitted || featureForm.con4.$touched">
+                                                            <div ng-show="featureForm.con4.$error.required" style="color: red;margin-left:0px;">Please Enter Instances</div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <label ng-disabled="!mySwitch" disabled="disabled" style="font-weight: 400;margin-left: 30px">Count Instances as:</label>
+                                                    </td>
+                                                    <td>
+                                                        <select ng-disabled="!mySwitch" disabled="disabled" ng-model="name.countCriteria" style="width: 175px;margin-left: 20px;" name="instance_as"  ng-init="name.countCriteria='Per Station'" required="">
+                                                            <option value="Per Station" ng-disabled="!mySwitch">Station</option>
+                                                            <option value="Per Login" ng-disabled="!mySwitch">Login</option>
+                                                            <option value="Per Process" ng-disabled="!mySwitch">Process</option>
+                                                        </select>
+                                                        <div ng-show="featureForm.$submitted || featureForm.instance_as.$touched">
+                                                            <div ng-show="featureForm.instance_as.$error.required" style="color: red;">Please Select Count Criteria</div>
+                                                        </div>
+
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-14 row" style="background-color: white;margin-left: 30px;">
+                        <br>
+                        <label><b>Accessibility</b></label>
+                        </br>
+                        <lable>
+                            <input type="checkbox" name="remote desktop" ng-model="name.remotedesktop" ng-true-value="'Yes'" ng-false-value="'No'">&nbsp;Remote Desktop&nbsp;&nbsp;</lable>
+                        <lable>
+                            <input type="checkbox" name="Network" ng-disabled="product.productLockingType=='SL-UserMode'" ng-model="name.network" ng-true-value="'Yes'" ng-false-value="'No'">&nbsp;Network &nbsp;&nbsp;</lable>
+                        <lable>
+                            <input type="checkbox" name="Virtual machine" ng-model="name.vm" ng-true-value="'Yes'" ng-disabled="product.productLockingType=='HL'" ng-false-value="'No'">&nbsp;Virtual Machine &nbsp;&nbsp;</lable>
+                        <br>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="background-color:#919191;padding:10px;">
+                <button type="button" class="btn btn-warning btn-sm" ng-disabled="featureForm.$invalid" ng-click="featureDefine(name,form)">Save</button>
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" ng-click="closeTerms(name,form)">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalIdedit" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content text-left">
+            <div class="modal-header" style="background-color:#919191;color:#FFF;padding: 10px;">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title text-left">Update License Terms</h4>
+            </div>
+            <div class="modal-body">
+                <div style="margin-left: 30px;">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <label style="font-weight: 400">
+                                    <h4>License Terms</h4>
+                                </label>
+                                <div class="col-md-12" style="border:#D3D3D3">
+
+                                    <tabLe>
+                                        <tr><td><span style="color: red;">*</span>
+                                            <label>Feature ID:</label></td>
+                                            <td><input type="text" placeholder="Feature ID" ng-model="name2.featureID" style="margin: 5px;" ng-disabled="true"></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span style="color: red;">*</span>
+                                                <label>Feature Name:</label></td>
+                                            <td>
+                                                <input type="text" placeholder="Feature Name" ng-model="name2.featureName" style="margin: 5px;" ng-disabled="true">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label>&nbsp;Feature Description:</label>
+                                            </td>
+                                            <td>
+                                                <input type="text" placeholder="Feature Description" ng-model="name2.featureDescription" style="margin: 5px;">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label style="font-weight: 400"><span style="color: red;">*</span>License Type:</label>
+                                            </td>
+                                            <td>
+                                                <select ng-model="name2.licenceType" style="width: 100%;margin-left: 5px;">
+                                                    <option value="perpetual">Perpetual</option>
+                                                    <option value="execution_count">Executions</option>
+                                                    <option value="expiration_date">Expiration Date</option>
+                                                    <option value="days_to_expiration">Days</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </tabLe>
+
+                                    <div style="margin-left: 4%;" class="animate-switch-container" ng-switch on="name2.licenceType">
+                                        <div ng-switch-when="execution_count">
+                                            <label>No of Execution:</label>&nbsp;
+                                            <input type="number" onkeypress="return isNumberKey(event)" ng-maxlength="16777215" ng-minlength="1" ng-model="name2.execution_count" style="height: 26px;">
+                                        </div>
+                                        <div ng-switch-when="expiration_date">
+                                            <label>Expiration Date:</label>&nbsp;
+                                            <input type="date" name="dateField" ng-model="name2.expiration_date" style="height: 26px;" min="2015-06-20" max="2038-01-01">
+                                            <div role="alert">
+                                                <span class="error" ng-show="myForm.input.$error.required">Required!</span>
+                                                <span class="error" ng-show="myForm.input.$error.date">Not a valid date!</span>
+                                            </div>
+                                        </div>
+                                        <div style="margin-left: 15%;" ng-switch-when="days_to_expiration">
+                                            <label>Days:</label>&nbsp;
+                                            <input type="number" onkeypress="return isNumberKey(event)" ng-model="name2.days_to_expiration" ng-maxlength="3650" ng-minlength="1" name="Days" style="height: 26px;">
+                                        </div>
+                                        <div ng-switch-when="perpetual" ng-init="name2.perpetual='perpetual'">
+                                            <input type="hidden" initial-value="perpetual" ng-model="name2.perpetual">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div ng-init="mySwitch=false">
+                                <div class="col-md-12">
+                                    <br>
+                                    <label style="font-weight: 300;">
+                                        <input type="checkbox" ng-model="mySwitch" class="ng-valid ng-dirty ng-valid-parse ng-touched">&nbsp;
+                                        <span style="font-weight: 400"><b>Enable Concurrency</b></span>
+                                    </label><br>
+                                    <form class="ng-pristine ng-valid">
+                                        <label style="font-weight: 300;margin-left: 35px;">
+                                            <label>
+                                                <input type="checkbox" id="unlimited" name="con2" ng-disabled="!mySwitch" disabled="disabled" ng-true-value="'Unlimited'" ng-false-value="'No'" ng-model="name2.counts">&nbsp; Unlimited Concurrent</label>
+                                            <br>
+                                        </label>
+                                        <script>
+                                            $('#unlimited').click(function() {
+                                                this.checked ? $('#showInstances').hide() : $('#showInstances').show();
+                                            });
+                                        </script>
+                                        <br>
+                                        <div id="showInstances"><span style="margin-left: 100px">OR</span>
+                                            <br>
+                                            <label style="margin-left: 30px">Number Instances</label>&nbsp;&nbsp;
+                                            <input style="margin-left: 40px;width: 130px;" onkeypress="return isNumberKey(event)" type="number" name="con4" style="width:130px;margin-left: 40px;" ng-disabled="!mySwitch" disabled="disabled" ng-model="name2.concurrentInstances">
+                                        </div>
+                                    </form>
+                                    <label ng-disabled="!mySwitch" disabled="disabled" style="font-weight: 400;margin-left: 30px"> Count each instances as -</label>
+                                    <select ng-disabled="!mySwitch" disabled="disabled" ng-model="name2.countCriteria" style="width: 130px;">
+                                        <option value="Per Station" ng-disabled="!mySwitch" disabled="disabled">Station</option>
+                                        <option value="Per Login" ng-disabled="!mySwitch" disabled="disabled">Login</option>
+                                        <option value="Per Process" ng-disabled="!mySwitch" disabled="disabled">Process</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-14 row" style="background-color: white;margin-left: 30px;">
+                        <br>
+                        <label><b>Accessibility</b></label>
+                        <br>
+                        <lable>
+                            <input type="checkbox" name="remote desktop" ng-model="name2.remotedesktop" ng-true-value="'Yes'" ng-false-value="'No'">&nbsp;Remote Desktop&nbsp;&nbsp;</lable>
+                        <lable>
+                            <input type="checkbox" name="Network" ng-model="name2.network" ng-true-value="'Yes'" ng-false-value="'No'">&nbsp;Network &nbsp;&nbsp;</lable>
+                        <lable>
+                            <input type="checkbox" name="Virtual machine" ng-model="name2.vm" ng-true-value="'Yes'" ng-false-value="'No'">&nbsp;Virtual Machine &nbsp;&nbsp;</lable>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="background-color:#919191;padding: 10px;">
+                <button type="button" class="btn btn-warning btn-sm" data-dismiss="modal" ng-click="featureDefine1(product1,name2)">Update</button>
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" ng-click="closeTerms(name)">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="cancellation" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:#919191;color: white;padding:10px;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Cancel Product</h4>
+            </div>
+            <div class="modal-body">
+                <form name="cancelForm" novalidate>
+                <div style="margin-left: 60px;">
+                    <table>
+                        <tr>
+                            <td>
+                                <label><span style="color: red">*</span>Base Product :</label>
+                            </td>
+                            <td>
+                                <label style="margin-left: 10px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{cancelAttr[0].productName}}</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label><span style="color: red">*</span>Product Name :</label>
+                            </td>
+                            <td>
+                                <input type="text" placeholder="Product Name" style="margin-left: 25px;width:100%" name="cancelProductName" ng-model="cancelAttr[0].name" required="">
+                                <div ng-show="cancelForm.$submitted || cencelForm.cancelProductName.$touched" style="margin-left: 25px;">
+                                    <div ng-show="cancelForm.cancelProductName.$error.required" style="color: red;">Please Enter Product Name.</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label><span style="color: red">*</span>Locking Type:</label>
+                            </td>
+                            <td>
+                                <select style="margin-left: 25px;width: 100%;" ng-model="cancelAttr[0].productLockingType" disabled>
+                                    <option value="HL">HL</option>
+                                    <option value="SL-AdminMode">SL-AdminMode</option>
+                                    <option value="SL-UserMode">SL-UserMode</option>
+                                    <option value="HL or SL-AdminMode">HL or SL-AdminMode</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div ng-switch on="cancelAttr[0].productLockingType">
+                        <div ng-switch-when="HL" style="margin-left: 130px;margin-top: 10px;margin-bottom: 10px;">
+                            <label><input type="checkbox">&nbsp;&nbsp;Upgrade to Driverless</label>
+                            <br>
+                            <label><input type="checkbox">&nbsp;&nbsp;Use Virtual Clock</label>
+                        </div>
+                        <div ng-switch-when="SL-AdminMode" style="margin-left: 130px;margin-top: 10px;margin-bottom: 10px;">
+                            <label><input type="checkbox">&nbsp;&nbsp;Upgrade to Driverless</label>
+                            <br>
+                            <label><input type="checkbox">&nbsp;&nbsp;Use Virtual Clock</label>
+                        </div>
+                        <div ng-switch-when="SL-UserMode" style="margin-left: 130px;margin-top: 10px;margin-bottom: 10px;">
+                            <label><input type="checkbox">&nbsp;&nbsp;Upgrade to Driverless</label>
+                            <br>
+                            <label><input type="checkbox">&nbsp;&nbsp;Use Virtual Clock</label>
+                        </div>
+                        <div ng-switch-when="HL or SL-AdminMode" style="margin-left: 130px;margin-top: 10px;margin-bottom: 10px;">
+                            <label><input type="checkbox">&nbsp;&nbsp;Upgrade to Driverless</label>
+                            <br>
+                            <label><input type="checkbox">&nbsp;&nbsp;Use Virtual Clock</label>
+                        </div>
+                    </div>
+
+                </div>
+
+                <button class="btn-xs btn-default btn" data-toggle="modal" data-target="#addcancFeature">+Add more Feature</button><label style="margin-left:15px;"><b>Do you Want complete Product Cancel? </b>&nbsp;&nbsp;<input type="checkbox" ng-model="cancelAttr[0].cancelProduct"></label>
+                <br><br>
+                <table ng-disabled="cancelAttr[0].cancelProduct" class="table table-bordered table-responsive table-striped table-condensed" style="margin-right: 15px;margin-bottom: 15px;">
+                    <tr>
+                        <th>#</th>
+                        <th>Feature ID</th>
+                        <th>Feature Name</th>
+                        <th>Actions</th>
+                    </tr>
+                    <tr ng-repeat="attr1 in cancelArr" >
+                        <td>
+                            <input type="checkbox">
+                        </td>
+                        <td>{{attr1.featureID}}</td>
+                        <td>{{attr1.featureName}}</td>
+                        <td style="color: red">
+                            <label><input type="checkbox" ng-model="attr1.cancelFeature">Cancel Feature</label>
+                        </td>
+                    </tr>
+                </table>
+                    
+                    <br>
+                <br>
+            </div>
+            <div class="modal-footer" style="background-color:#919191;padding:10px">
+                <button type="button" class="btn btn-warning btn-sm" ng-disabled="cancelForm.$invalid" ng-click="addCancelPrdct(cancelAttr[0]._id, cancelAttr[0].productID, cancelAttr[0].name, cancelAttr[0].productLockingType, cancelAttr[0].memoryType, cancelAttr[0].memory, cancelAttr[0].cancelProduct, cancelArr, cancelForm)">Cancel Product</button>
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" ng-click="closeBtn()">Close</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modifyAction" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content text-left">
+            <div class="modal-header" style="background-color:#919191;color:#FFF;padding: 10px;">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title text-left">Modify License Terms</h4>
+            </div>
+            <div class="modal-body">
+                <!-- define each Feature -->
+                <div style="margin-left: 30px;">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <label style="font-weight: 400">
+                                    <h4>License Terms</h4>
+                                </label>
+                                <div class="col-md-12" style="border:#D3D3D3">
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <span style="color: red;">*</span>
+                                                <label>Feature ID:</label>
+                                            </td>
+                                            <td>
+                                                <input type="text" placeholder="Feature ID" ng-model="modifyFeatureAction.featureID"  ng-disabled="true">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span style="color: red;">*</span>
+                                                <label>Feature Name:</label>
+                                            </td>
+                                            <td>
+                                                <input type="text" placeholder="Feature Name" ng-model="modifyFeatureAction.featureName" ng-disabled="true">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><label>&nbsp;Feature Description:</label></td>
+                                            <td><input type="text" placeholder="Feature Description" ng-model="modifyFeatureAction.featureDescription"  ng-disabled="true"></td>
+                                        </tr>
+                                        <tr>
+                                            <td><label style="font-weight: 400"><span style="color: red;">*</span>License Type:</label></td>
+                                            <td><select ng-model="modifyFeatureAction.licenceType" ng-options="itemL for itemL in LicenseType_selects" style="width: 100%;"></select></td>
+                                        </tr>
+                                    </table>
+
+                                    <div style="margin-left: 4%;" class="animate-switch-container" ng-switch on="modifyFeatureAction.licenceType" ng-init="modifyFeatureAction.perpetual='perpetual'">
+                                        <div ng-switch-when="Perpetual" ng-init="modifyFeatureAttr.perpetual='perpetual'" ng-model="modifyFeatureAction.perpetual"></div>
+                                        <div ng-switch-when="Execution">
+                                            <label>No of Execution:</label>&nbsp;
+                                            <input type="number" onkeypress="return isNumberKey(event)" ng-maxlength="16777215" ng-minlength="1" ng-model="modifyFeatureAction.execution_count" style="height: 26px;">
+                                        </div>
+                                        <div ng-switch-when="Expiration Date">
+                                            <label>Expiration Date:</label>&nbsp;
+                                            <input type="date" name="dateField" ng-model="modifyFeatureAction.expiration_date" style="height: 26px;" min="2015-06-20" max="2038-01-01">
+                                            <div role="alert">
+                                                <span class="error" ng-show="myForm.input.$error.required">Required!</span>
+                                                <span class="error" ng-show="myForm.input.$error.date">Not a valid date!</span>
+                                            </div>
+                                        </div>
+                                        <div style="margin-left: 15%" ng-switch-when="Time Period">
+                                            <label>Days:</label>&nbsp;
+                                            <input type="number" onkeypress="return isNumberKey(event)" ng-model="modifyFeatureAction.days_to_expiration" ng-maxlength="3650" ng-minlength="1" name="Days" style="height: 26px;">
+                                        </div>
+                                        <div ng-switch-default="Perpetual" ng-init="modifyFeatureAction.perpetual='perpetual'">
+                                            <input type="hidden" initial-value="perpetual" ng-model="name.perpetual">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div ng-init="mySwitch=false">
+                                <div class="col-md-12">
+                                    <br>
+                                    <label style="font-weight: 300;">
+                                        <input type="checkbox" ng-model="mySwitch" class="ng-valid ng-dirty ng-valid-parse ng-touched">&nbsp;
+                                        <span style="font-weight: 400"><b>Enable Concurrency</b></span>
+                                    </label>
+                                    <form class="ng-pristine ng-valid">
+                                        <label style="font-weight: 300;margin-left: 50px;">
+                                            <input id="unlimited3" type="checkbox" name="con2" ng-disabled="!mySwitch" disabled="disabled" ng-true-value="'Unlimited'" ng-false-value="'No'" ng-model="modifyFeatureAction.counts">&nbsp;&nbsp; Unlimited Concurrent</label>
+                                        <br>
+                                        <script>
+                                            $('#unlimited3').click(function() {
+                                                this.checked ? $('#showInsta3').hide() : $('#showInsta3').show();
+                                            });
+                                        </script>
+                                        <div id="showInsta3"><span style="margin-left: 100px">OR</span>
+                                            <br>
+                                            <label style="margin-left: 30px;">Number Instances</label>&nbsp;&nbsp;
+                                            <input type="number" onkeypress="return isNumberKey(event)" style="margin-left: 40px;width:130px;" name="con4" ng-disabled="!mySwitch" disabled="disabled" ng-model="modifyFeatureAction.concurrentInstances">
+                                        </div>
+                                    </form>
+                                    <label ng-disabled="!mySwitch" disabled="disabled" style="font-weight: 400;margin-left: 30px"> Count each instances as -</label>
+                                    <select ng-disabled="!mySwitch" disabled="disabled" ng-model="modifyFeatureAction.countCriteria" style="width: 130px;">
+                                        <option value="Per Station" ng-disabled="!mySwitch" disabled="disabled">Station</option>
+                                        <option value="Per Login" ng-disabled="!mySwitch" disabled="disabled">Login</option>
+                                        <option value="Per Process" ng-disabled="!mySwitch" disabled="disabled">Process</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-14 row" style="background-color: white;margin-left: 30px;">
+                        <br>
+                        <label><b>Accessibility</b></label>
+                        </br>
+                        <lable>
+                            <input type="checkbox" name="remote desktop" ng-model="modifyFeatureAction.remotedesktop" ng-true-value="'Yes'" ng-false-value="'No'">&nbsp;Remote Desktop&nbsp;&nbsp;</lable>
+                        <lable>
+                            <input type="checkbox" name="Network" ng-model="modifyFeatureAction.network" ng-true-value="'Yes'" ng-false-value="'No'">&nbsp;Network &nbsp;&nbsp;</lable>
+                        <lable>
+                            <input type="checkbox" name="Virtual machine" ng-model="modifyFeatureAction.vm" ng-true-value="'Yes'" ng-false-value="'No'">&nbsp;Virtual Machine &nbsp;&nbsp;</lable>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="background-color:#919191;padding:10px;">
+                <button type="button" class="btn btn-warning btn-sm" data-dismiss="modal" ng-click="modifyFeatureFunc(modifyFeatureAction)">Modify Feature</button>
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addModiFeature" role="dialoge" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:#919191;color:white;font-weight: 400;padding: 10px;">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4>&nbsp;&nbsp;Select Features</h4>
+            </div>
+            <div class="modal-body col-md-12" style="background-color: white;padding: 10px;">
+                <div></div>
+                <div frame="box" class="col-md-12">
+                    <input type="text" class="form-control" placeholder="Search Features..." ng-model="searchText" style="margin-left:1px;" />
+                    <br>
+                    <div style="height: 255px">
+                    <table class="table table-responsive table-bordered table-striped table-condensed table-hover">
+                        <tr>
+                            <th>Feature ID&nbsp;</th>
+                            <th>&nbsp;Feature Name&nbsp;</th>
+                            <th>&nbsp;Feature Description</th>
+                            <th>Actions</th>
+                        </tr>
+                        <tr dir-paginate="feature in productFeature | itemsPerPage:6">
+                            <td>&nbsp;{{feature.featureID}}</td>
+                            <td>{{feature.featureName}}</td>
+                            <td>{{feature.featureDescription}}</td>
+                            <td>&nbsp;
+                                <button class="btn btn-default btn-xs" data-toggle="modal" data-target="#modiDefineFeature" data-dismiss="modal" ng-click="moreModifyFeature(feature)">Add</button>
+                            </td>
+                        </tr>
+                    </table>
+                    </div>
+                    <style>
+                        .pagination .active a{
+                            background-color: #C1C2C4;
+                            color: #000;
+                            border-color: #C1C2C4;
+                        }
+                        .pagination .active a:hover {
+                            background-color: #5f7c74;
+                            color: white;
+                            border-color: #5f7c74;
+                        }
+                        .pagination {
+                            margin: 0px;
+                            margin-top: -10px;
+                            margin-left: 30%;
+                        }
+                        .pagination .active a:focus, .pagination .active a:hover, .pagination .active span, .pagination .active span:focus, .pagination .active span:hover{
+                            z-index: 2;
+                            color: white;
+                            border-color: #5f7c74;
+                            background-color: #5f7c74;
+                            cursor: default;
+                        }
+                    </style>
+                    <dir-pagination-controls max-size="5" direction-link="true" boundary-links="true"></dir-pagination-controls>
+                    <br>
+                    <br>
+                </div>
+            </div>
+            <div class="modal-footer" style="background-color:#919191;padding: 10px;">
+                <button class="btn btn-warning btn-sm" data-dismiss="modal" style="margin-top: 5px;">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addcancFeature" role="dialoge" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:#919191;color:white;font-weight: 400;padding: 10px;">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4>&nbsp;&nbsp;Select Features</h4>
+            </div>
+            <div class="modal-body col-md-12" style="background-color: white">
+                <div></div>
+                <div frame="box" class="col-md-12">
+                    <input type="text" class="form-control" placeholder="Search Features..." ng-model="searchText" style="margin-left:1px;">
+                    <br>
+                    <div style="height: 255px">
+                    <table class="table table-responsive table-bordered table-striped table-condensed table-hover">
+                        <tr>
+                            <th>Feature ID&nbsp;</th>
+                            <th>&nbsp;Feature Name&nbsp;</th>
+                            <th>&nbsp;Feature Description</th>
+                            <th>Actions</th>
+                        </tr>
+                        <tr dir-paginate="feature in productFeature | itemsPerPage:6">
+                            <td>&nbsp;{{feature.featureID}}</td>
+                            <td>{{feature.featureName}}</td>
+                            <td>{{feature.featureDescription}}</td>
+                            <td>&nbsp;
+                                <button class="btn btn-default btn-xs" data-toggle="modal" data-target="#cancDefineFeature" data-dismiss="modal" ng-click="moreModifyFeature(feature)">Add</button>
+                            </td>
+                        </tr>
+                    </table>
+                    </div>
+                    <style>
+                        .pagination .active a{
+                            background-color: #C1C2C4;
+                            color: #000;
+                            border-color: #C1C2C4;
+                        }
+                        .pagination .active a:hover {
+                            background-color: #5f7c74;
+                            color: white;
+                            border-color: #5f7c74;
+                        }
+                        .pagination {
+                            margin: 0px;
+                            margin-top: -10px;
+                            margin-left: 30%;
+                        }
+                        .pagination .active a:focus, .pagination .active a:hover, .pagination .active span, .pagination .active span:focus, .pagination .active span:hover{
+                            z-index: 2;
+                            color: white;
+                            border-color: #5f7c74;
+                            background-color: #5f7c74;
+                            cursor: default;
+                        }
+                    </style>
+                    <dir-pagination-controls max-size="5" direction-link="true" boundary-links="true"></dir-pagination-controls>
+                    <br>
+                    <br>
+                </div>
+            </div>
+            <div class="modal-footer" style="background-color:#919191;padding: 10px;">
+                <br>
+                <button class="btn btn-warning" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="cancDefineFeature" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content text-left">
+            <div class="modal-header" style="background-color:#919191;color:#FFF;padding: 10px;">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title text-left">Define License Terms</h4>
+            </div>
+            <div class="modal-body">
+                <form name="cancelFeatureFrom" novalidate>
+                <div style="margin-left: 30px;">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <label style="font-weight: 400">
+                                    <h4>License Terms</h4>
+                                </label>
+                                <div class="col-md-12" style="border:#D3D3D3">
+                                    <table>
+                                        <tr>
+                                            <td> <span style="color: red;">*</span>
+                                                <label>Feature ID:</label></td>
+                                            <td>
+                                                <input type="text" placeholder="Feature ID" name="cancelFeatureID" ng-model="modifyFeatureAttr.featureID">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><span style="color: red;">*</span>
+                                                <label>Feature Name:</label></td>
+                                            <td>
+                                                <input type="text" placeholder="Feature Name" name="cancelFeatureName" ng-model="modifyFeatureAttr.featureName">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label>&nbsp;&nbsp;Feature Description:</label>
+                                            </td>
+                                            <td>
+                                                <input type="text" placeholder="Feature Description" ng-model="modifyFeatureAttr.featureDescription">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label style="font-weight: 400"><span style="color: red;">*</span>License Type:</label>
+                                            </td>
+                                            <td>
+                                                <select ng-model="licenceType" name="cancelLicenseType" ng-options="itemL for itemL in LicenseType_selects" style="width: 100%;" required=""></select>
+                                                <div ng-show="cancelFeatureFrom.$submitted || cancelFeatureFrom.cancelLicenseType.$touched">
+                                                    <div ng-show="cancelFeatureFrom.cancelLicenseType.$error.required" style="color: red;">Please Select License Type.</div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+
+                                    <div style="margin-left: 5%;" class="animate-switch-container" ng-switch on="licenceType" ng-init="modifyFeatureAttr.perpetual='perpetual'">
+                                        <div ng-switch-when="Perpetual" ng-init="modifyFeatureAttr.perpetual='perpetual'" ng-model="modifyFeatureAttr.perpetual"></div>
+                                        <div ng-switch-when="Execution">
+                                            <label>No of Execution:</label>&nbsp;
+                                            <input type="number" onkeypress="return isNumberKey(event)" ng-maxlength="16777215" ng-minlength="1" ng-model="modifyFeatureAttr.execution_count" style="height: 26px;">
+                                        </div>
+                                        <div ng-switch-when="Expiration Date">
+                                            <label>Expiration Date:</label>&nbsp;
+                                            <input type="date" name="dateField" placeholder="DD/MM/YYYY" ng-model="modifyFeatureAttr.expiration_date" style="height: 26px;" min="2015-06-20" max="2038-01-01">(DD/MM/YYYY)
+                                            <div role="alert">
+                                                <span class="error" ng-show="cancelFeatureFrom.dateField.$error.required">Required!</span>
+                                                <span class="error" ng-show="cancelFeatureFrom.dateField.$error.date">Not a valid date!</span>
+                                            </div>
+                                        </div>
+                                        <div style="margin-left: 15%;" ng-switch-when="Time Period">
+                                            <label>Days:</label>&nbsp;
+                                            <input type="number" onkeypress="return isNumberKey(event)" ng-model="modifyFeatureAttr.days_to_expiration" ng-maxlength="3650" ng-minlength="1" name="Days" style="height: 26px;">
+                                        </div>
+                                        <div ng-switch-default="Perpetual" ng-init="modifyFeatureAttr.perpetual='perpetual'">
+                                            <input type="hidden" initial-value="perpetual" ng-model="name.perpetual">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div ng-init="mySwitch=false">
+                                <div class="col-md-12">
+                                    <br>
+                                    <label style="font-weight: 300;">
+                                        <input type="checkbox" ng-model="mySwitch" class="ng-valid ng-dirty ng-valid-parse ng-touched">&nbsp;
+                                        <span style="font-weight: 400"><b>Enable Concurrency</b></span>
+                                    </label><br>
+                                    <form class="ng-pristine ng-valid">
+                                        <label style="font-weight: 300;margin-left: 30px;">
+                                            <input id="unlimited2" type="checkbox" name="con2" ng-disabled="!mySwitch" disabled="disabled" ng-true-value="'Unlimited'" ng-false-value="'No'" ng-model="modifyFeatureAttr.counts">&nbsp; Unlimited Concurrent</label>
+                                        <br>
+                                        <script>
+                                            $('#unlimited2').click(function() {
+                                                this.checked ? $('#showInsta2').hide() : $('#showInsta2').show();
+                                            });
+                                        </script>
+                                        <div id="showInsta2"><span style="margin-left: 100px">OR</span>
+                                            <br>
+                                            <label style="margin-left: 30px;">Number Instances</label>&nbsp;&nbsp;
+                                            <input style="width: 130px;margin-left: 40px" type="number" onkeypress="return isNumberKey(event)" name="con4" ng-disabled="!mySwitch" disabled="disabled" ng-model="modifyFeatureAttr.concurrentInstances">
+                                        </div>
+                                    </form>
+                                    <label ng-disabled="!mySwitch" disabled="disabled" style="font-weight: 400;margin-left: 30px"> Count each instances as -</label>
+                                    <select ng-disabled="!mySwitch" disabled="disabled" ng-model="modifyFeatureAttr.countCriteria" style="width: 130px;">
+                                        <option value="Per Station" ng-disabled="!mySwitch" disabled="disabled">Station</option>
+                                        <option value="Per Login" ng-disabled="!mySwitch" disabled="disabled">Login</option>
+                                        <option value="Per Process" ng-disabled="!mySwitch" disabled="disabled">Process</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-14 row" style="background-color: white;margin-left: 30px;">
+                        <br>
+                        <label><b>Accessibility</b></label>
+                        </br>
+                        <lable>
+                            <input type="checkbox" name="remote desktop" ng-model="modifyFeatureAttr.remotedesktop" ng-true-value="'Yes'" ng-false-value="'No'">&nbsp;Remote Desktop&nbsp;&nbsp;</lable>
+                        <lable>
+                            <input type="checkbox" name="Network" ng-model="modifyFeatureAttr.network" ng-true-value="'Yes'" ng-false-value="'No'">&nbsp;Network &nbsp;&nbsp;</lable>
+                        <lable>
+                            <input type="checkbox" name="Virtual machine" ng-model="modifyFeatureAttr.vm" ng-true-value="'Yes'" ng-false-value="'No'">&nbsp;Virtual Machine &nbsp;&nbsp;</lable>
+                        <br>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="background-color:#919191;padding: 10px">
+                <button type="button" class="btn btn-warning btn-sm" ng-disabled="cancelFeatureFrom.$invalid" ng-click="addCancFeature(modifyFeatureAttr, cancelFeatureFrom)">Add Feature</button>
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modiDefineFeature" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content text-left">
+            <div class="modal-header" style="background-color:#919191;color:#FFF;padding: 10px;">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title text-left">Define License Terms</h4>
+            </div>
+            <div class="modal-body">
+                <div style="margin-left: 30px;">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <form name="modifyFeature" novalidate>
+                                <label style="font-weight: 400">
+                                    <h4>License Terms</h4>
+                                </label>
+                                <div class="col-md-12" style="border:#D3D3D3">
+                                    <table>
+                                        <tr>
+                                            <td><span style="color: red;">*</span>
+                                                <label>Feature ID:</label></td>
+                                            <td>
+                                                <input type="text" placeholder="Feature ID" ng-model="modifyFeatureAttr.featureID"  ng-disabled="true">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span style="color: red;">*</span>
+                                                <label>Feature Name:</label>
+                                            </td>
+                                            <td>
+                                                <input type="text" placeholder="Feature Name" ng-model="modifyFeatureAttr.featureName"  ng-disabled="true">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label>&nbsp;Feature Description:</label>
+                                            </td>
+                                            <td>
+                                                <input type="text" placeholder="Feature Description" ng-model="modifyFeatureAttr.featureDescription"  ng-disabled="true">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label style="font-weight: 400"><span style="color: red;">*</span>License Type:</label>
+                                            </td>
+                                            <td>
+                                                <select ng-model="licenceType" name="licType" ng-options="itemL for itemL in LicenseType_selects" style="width: 100%;" ng-init="licenceType='perpetual'" required=""></select>
+                                                <div ng-show="modifyFeature.$submitted || modifyFeature.licType.$touched">
+                                                    <div ng-show="modifyFeature.licType.$error.required" style="color: red;">Please Select License Type.</div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                    <div style="margin-left: 4%;" class="animate-switch-container" ng-switch on="licenceType" ng-init="modifyFeatureAttr.perpetual='perpetual'">
+                                        <div ng-switch-when="Perpetual" ng-init="modifyFeatureAttr.perpetual='perpetual'" ng-model="modifyFeatureAttr.perpetual"></div>
+                                        <div ng-switch-when="Execution">
+                                            <label>No of Execution:</label>&nbsp;
+                                            <input type="number" onkeypress="return isNumberKey(event)" name="modifyExecution" ng-maxlength="16777215" ng-minlength="1" ng-model="modifyFeatureAttr.execution_count" style="height: 26px;" required="">
+                                            <div ng-show="modifyFeature.$submitted || modifyFeature.modifyExecution.$touched">
+                                                <div ng-show="modifyFeature.modifyExecution.$error.required" style="color: red;margin-left: 125px;">Please Enter Number of Execution.</div>
+                                            </div>
+                                        </div>
+                                        <div ng-switch-when="Expiration Date">
+                                            <label>Expiration Date:</label>&nbsp;
+                                            <input type="date" name="dateField" ng-model="modifyFeatureAttr.expiration_date" style="height: 26px;" min="2015-06-20" max="2038-01-01" placeholder="DD/MM/YYYY">
+                                            <div role="alert">
+                                                <span class="error" ng-show="modifyFeature.dateField.$error.required">Required!</span>
+                                                <span class="error" ng-show="modifyFeature.dateField.$error.date">Not a valid date!</span>
+                                            </div>
+                                        </div>
+                                        <div style="margin-left: 55px;" ng-switch-when="Time Period">
+                                            <label>Days:</label>&nbsp;
+                                            <input type="number" onkeypress="return isNumberKey(event)" ng-model="modifyFeatureAttr.days_to_expiration" ng-maxlength="3650" ng-minlength="1" name="Days" style="height: 26px;">
+                                            <div ng-show="modifyFeature.$submitted || modifyFeature.Days.$touched">
+                                                <div ng-show="modifyFeature.Days.$error.required" style="color: red;margin-left: 125px;">Please Enter Time Period.</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div ng-init="mySwitch=false">
+                                <div class="col-md-12">
+                                    <br>
+                                    <label style="font-weight: 300;">
+                                        <input type="checkbox" ng-model="mySwitch" class="ng-valid ng-dirty ng-valid-parse ng-touched">&nbsp;
+                                        <span style="font-weight: 400"><b>Enable Concurrency</b></span>
+                                    </label><br>
+                                    <form class="ng-pristine ng-valid">
+                                        <label style="font-weight: 300;margin-left: 50px;">
+                                            <input type="checkbox" name="con2" ng-disabled="!mySwitch" disabled="disabled" ng-true-value="'Unlimited'" ng-false-value="'No'" ng-model="modifyFeatureAttr.counts">&nbsp;&nbsp; Unlimited Concurrent</label>
+                                        <br>
+                                        <div ng-hide="modifyFeatureAttr.counts=='Unlimited'"><span style="margin-left: 100px">OR</span>
+                                            <br>
+                                            <label style="margin-left: 30px;">Number Instances</label>&nbsp;&nbsp;
+                                            <input style="margin-left: 40px;width: 130px;" type="number" onkeypress="return isNumberKey(event)" name="con4" ng-disabled="!mySwitch" disabled="disabled" ng-model="modifyFeatureAttr.concurrentInstances">
+                                        </div>
+                                    </form>
+                                    <label ng-disabled="!mySwitch" disabled="disabled" style="font-weight: 400;margin-left: 30px"> Count each instances as -</label>
+                                    <select ng-disabled="!mySwitch" disabled="disabled" name="modifyCriteria" ng-model="modifyFeatureAttr.countCriteria" style="width: 130px;" ng-init="modifyFeatureAttr.countCriteria='Station'" required="">
+                                        <option value="Per Station" ng-disabled="!mySwitch" disabled="disabled">Station</option>
+                                        <option value="Per Login" ng-disabled="!mySwitch" disabled="disabled">Login</option>
+                                        <option value="Per Process" ng-disabled="!mySwitch" disabled="disabled">Process</option>
+                                    </select>
+                                    <div ng-show="modifyFeature.$submitted || modifyFeature.modifyCriteria.$touched">
+                                        <div ng-show="modifyFeature.modifyCriteria.$error.required" style="color: red;margin-left: 125px;">Please Select Count Criteria.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-14 row" style="background-color: white;margin-left: 30px;">
+                        <br>
+                        <label><b>Accessibility</b></label>
+                        </br>
+                        <lable>
+                            <input type="checkbox" name="remote desktop" ng-model="modifyFeatureAttr.remotedesktop" ng-true-value="'Yes'" ng-false-value="'No'">&nbsp;Remote Desktop&nbsp;&nbsp;</lable>
+                        <lable>
+                            <input type="checkbox" name="Network" ng-model="modifyFeatureAttr.network" ng-true-value="'Yes'" ng-false-value="'No'">&nbsp;Network &nbsp;&nbsp;</lable>
+                        <lable>
+                            <input type="checkbox" name="Virtual machine" ng-model="modifyFeatureAttr.vm" ng-true-value="'Yes'" ng-false-value="'No'">&nbsp;Virtual Machine &nbsp;&nbsp;</lable>
+                        <br>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="background-color:#919191;padding: 10px;">
+                <button type="button" class="btn btn-warning btn-sm" ng-disabled="modifyFeature.$invalid" ng-click="addModifyFeature(modifyFeatureAttr, modifyFeature)">Add Feature</button>
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modiDefineFeature" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content text-left">
+            <div class="modal-header" style="background-color:#919191;color:#FFF;padding: 10px;">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title text-left">Define License Terms</h4>
+            </div>
+            <div class="modal-body">
+                <div style="margin-left: 30px;">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <label style="font-weight: 400">
+                                    <h4>License Terms</h4>
+                                </label>
+                                <div class="col-md-12" style="border:#D3D3D3">
+                                    <span style="color: red;">*</span>
+                                    <label>Feature ID:</label>
+                                    <input type="text" placeholder="Feature ID" ng-model="modifyFeatureAttr.featureID" style="margin: 5px;margin-left: 65px;">
+                                    <br>
+                                    <span style="color: red;">*</span>
+                                    <label>Feature Name:</label>
+                                    <input type="text" placeholder="Feature Name" ng-model="modifyFeatureAttr.featureName" style="margin: 5px;margin-left: 45px;" ng-disabled="true">
+                                    <br>
+                                    <label>&nbsp;Feature Description:</label>
+                                    <input type="text" placeholder="Feature Description" ng-model="modifyFeatureAttr.featureDescription" style="margin: 5px;margin-left: 8px;" ng-disabled="true">
+                                    <br>
+                                    <label style="font-weight: 400"><span style="color: red;">*</span>License Type:</label>
+                                    <select ng-model="licenceType" ng-options="itemL for itemL in LicenseType_selects" style="width: 153px;margin-left: 43px;" ng-init="licenceType=perpetual"></select>
+
+                                    <div style="margin-left: 40px;" class="animate-switch-container" ng-switch on="licenceType" ng-init="modifyFeatureAttr.perpetual='perpetual'">
+                                        <div ng-switch-when="Perpetual" ng-init="modifyFeatureAttr.perpetual='perpetual'" ng-model="modifyFeatureAttr.perpetual"></div>
+                                        <div ng-switch-when="Execution">
+                                            <label>No of Execution:</label>&nbsp;
+                                            <input type="number" onkeypress="return isNumberKey(event)" ng-maxlength="16777215" ng-minlength="1" ng-model="modifyFeatureAttr.execution_count" style="height: 26px;">
+                                        </div>
+                                        <div ng-switch-when="Expiration Date">
+                                            <label>Expiration Date:</label>&nbsp;
+                                            <input type="date" name="dateField" placeholder="DD/MM/YYYY" ng-model="modifyFeatureAttr.expiration_date" style="height: 26px;" min="2015-06-20" max="2038-01-01">
+                                            <div role="alert">
+                                                <span class="error" ng-show="myForm.dateField.$error.required">Required!</span>
+                                                <span class="error" ng-show="myForm.dateField.$error.date">Not a valid date!</span>
+                                            </div>
+                                        </div>
+                                        <div style="margin-left: 55px;" ng-switch-when="Time Period">
+                                            <label>Days:</label>&nbsp;
+                                            <input type="number" onkeypress="return isNumberKey(event)" ng-model="modifyFeatureAttr.days_to_expiration" ng-maxlength="3650" ng-minlength="1" name="Days" style="height: 26px;">
+                                        </div>
+                                        <div ng-switch-default="Perpetual" ng-init="modifyFeatureAttr.perpetual='perpetual'">
+                                            <input type="hidden" initial-value="perpetual" ng-model="name.perpetual">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div ng-init="mySwitch=false">
+                                <div class="col-md-12">
+                                    <br>
+                                    <label style="font-weight: 300;">
+                                        <input type="checkbox" ng-model="mySwitch" class="ng-valid ng-dirty ng-valid-parse ng-touched">&nbsp;
+                                        <span style="font-weight: 400"><b>Enable Concurrency</b></span>
+                                    </label>
+                                    <form class="ng-pristine ng-valid">
+                                        <label style="font-weight: 300;margin-left: 50px;">
+                                            <input id="unlimited2" type="checkbox" name="con2" ng-disabled="!mySwitch" disabled="disabled" ng-true-value="'Unlimited'" ng-false-value="'No'" ng-model="modifyFeatureAttr.counts">&nbsp;&nbsp; Unlimited Concurrent</label>
+                                        <br>
+                                        <script>
+                                            $('#unlimited2').click(function() {
+                                                this.checked ? $('#showInsta2').hide(1000) : $('#showInsta2').show(1000);
+                                            });
+                                        </script>
+                                        <div id="showInsta2"><span style="margin-left: 100px">OR</span>
+                                            <br>
+                                            <label style="margin-left: 30px">Number Instances</label>&nbsp;&nbsp;
+                                            <input style="margin-left: 40px;width: 130px;" onkeypress="return isNumberKey(event)" type="number" name="con4" ng-disabled="!mySwitch" disabled="disabled" ng-model="modifyFeatureAttr.concurrentInstances">
+                                        </div>
+                                    </form>
+                                    <label ng-disabled="!mySwitch" disabled="disabled" style="font-weight: 400;margin-left: 30px"> Count each instances as -</label>
+                                    <select ng-disabled="!mySwitch" disabled="disabled" ng-model="modifyFeatureAttr.countCriteria" style="width: 130px;">
+                                        <option value="Per Station" ng-disabled="!mySwitch" disabled="disabled">Station</option>
+                                        <option value="Per Login" ng-disabled="!mySwitch" disabled="disabled">Login</option>
+                                        <option value="Per Process" ng-disabled="!mySwitch" disabled="disabled">Process</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-14 row" style="background-color: white;margin-left: 30px;">
+                        <br>
+                        <label><b>Accessibility</b></label>
+                        </br>
+                        <lable>
+                            <input type="checkbox" name="remote desktop" ng-model="modifyFeatureAttr.remotedesktop" ng-true-value="'Yes'" ng-false-value="'No'">&nbsp;Remote Desktop&nbsp;&nbsp;</lable>
+                        <lable>
+                            <input type="checkbox" name="Network" ng-model="modifyFeatureAttr.network" ng-true-value="'Yes'" ng-false-value="'No'">&nbsp;Network &nbsp;&nbsp;</lable>
+                        <lable>
+                            <input type="checkbox" name="Virtual machine" ng-model="modifyFeatureAttr.vm" ng-true-value="'Yes'" ng-false-value="'No'">&nbsp;Virtual Machine &nbsp;&nbsp;</lable>
+                        <br>
+                        <br>
+                        <br>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="background-color:#919191;padding: 10px;">
+                <button type="button" class="btn btn-warning btn-sm" data-dismiss="modal" ng-click="addModifyFeature(modifyFeatureAttr)">Add Feature</button>
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="overwriteAction" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content text-left">
+            <div class="modal-header" style="background-color:#919191;color:#FFF;padding: 10px;">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title text-left">Overwrite License Terms</h4>
+            </div>
+            <div class="modal-body">
+                <div style="margin-left: 30px;">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <label style="font-weight: 400">
+                                    <h4>License Terms</h4>
+                                </label>
+                                <div class="col-md-12" style="border:#D3D3D3">
+
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <span style="color: red;">*</span>
+                                                <label>Feature ID:</label>
+                                            </td>
+                                            <td>
+                                                <input type="text" placeholder="Feature ID" ng-model="overwriteAttrs.featureID" disabled>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span style="color: red;">*</span>
+                                                <label>Feature Name:</label>
+                                            </td>
+                                            <td>
+                                                <input type="text" placeholder="Feature Name" ng-model="overwriteAttrs.featureName" disabled>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label>&nbsp;Feature Description:</label>
+                                            </td>
+                                            <td>
+                                                <input type="text" placeholder="Feature Description" ng-model="overwriteAttrs.featureDescription" disabled>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><label style="font-weight: 400"><span style="color: red;">*</span>License Type:</label></td>
+                                            <td>
+                                                <select ng-model="overwriteAttrs.licenceType" ng-options="itemL for itemL in LicenseType_selects" style="width: 100%;"></select>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                    <div style="margin-left: 4%;" class="animate-switch-container" ng-switch on="overwriteAttrs.licenceType" ng-init="overwriteAttrs.perpetual='perpetual'">
+                                        <div ng-switch-when="Perpetual" ng-init="modifyFeatureAttr.perpetual='perpetual'" ng-model="overwriteAttrs.perpetual"></div>
+                                        <div ng-switch-when="Execution">
+                                            <label>No of Execution:</label>&nbsp;
+                                            <input type="number" onkeypress="return isNumberKey(event)" ng-maxlength="16777215" ng-minlength="1" ng-model="overwriteAttrs.execution_count" style="height: 26px;">
+                                        </div>
+                                        <div ng-switch-when="Expiration Date">
+                                            <label>Expiration Date:</label>&nbsp;
+                                            <input type="date" name="dateField" ng-model="overwriteAttrs.expiration_date" style="height: 26px;" min="2015-06-20" max="2038-01-01">
+                                            <div role="alert">
+                                                <span class="error" ng-show="myForm.input.$error.required">Required!</span>
+                                                <span class="error" ng-show="myForm.input.$error.date">Not a valid date!</span>
+                                            </div>
+                                        </div>
+                                        <div style="margin-left: 15%;" ng-switch-when="Time Period">
+                                            <label>Days:</label>&nbsp;
+                                            <input type="number" onkeypress="return isNumberKey(event)" ng-model="overwriteAttrs.days_to_expiration" ng-maxlength="3650" ng-minlength="1" name="Days" style="height: 26px;">
+                                        </div>
+                                        <div ng-switch-default="Perpetual" ng-init="overwriteAttrs.perpetual='perpetual'">
+                                            <input type="hidden" initial-value="perpetual" ng-model="overwriteAttrs.perpetual">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div ng-init="mySwitch=false">
+                                <div class="col-md-12">
+                                    <br>
+                                    <label style="font-weight: 300;">
+                                        <input type="checkbox" ng-model="mySwitch" class="ng-valid ng-dirty ng-valid-parse ng-touched">&nbsp;
+                                        <span style="font-weight: 400"><b>Enable Concurrency</b></span>
+                                    </label>
+                                    <form class="ng-pristine ng-valid">
+                                        <label style="font-weight: 300;margin-left: 40px;">
+                                            <input id="unlimited2" type="checkbox" name="con2" ng-disabled="!mySwitch" disabled="disabled" ng-true-value="'Unlimited'" ng-false-value="'No'" ng-model="overwriteAttrs.counts">&nbsp;&nbsp; Unlimited Concurrent</label>
+                                        <br>
+                                        <div ng-show="overwriteAttrs.counts != 'Unlimited'" ><span style="margin-left: 100px">OR</span>
+                                            <br>
+                                            <label style="margin-left: 30px">Number Instances</label>&nbsp;&nbsp;
+                                            <input style="margin-left: 40px;width: 130px;" onkeypress="return isNumberKey(event)" type="number" style="width: 130px;margin-left: 30px;" name="con4" ng-disabled="!mySwitch" disabled="disabled" ng-model="overwriteAttrs.concurrentInstances">
+                                        </div>
+                                    </form>
+                                    <label ng-disabled="!mySwitch" disabled="disabled" style="font-weight: 400;margin-left: 30px"> Count each instances as -</label>
+                                    <select ng-disabled="!mySwitch" disabled="disabled" ng-model="overwriteAttrs.countCriteria" style="width: 130px;">
+                                        <option value="Per Station" ng-disabled="!mySwitch" disabled="disabled">Station</option>
+                                        <option value="Per Login" ng-disabled="!mySwitch" disabled="disabled">Login</option>
+                                        <option value="Per Process" ng-disabled="!mySwitch" disabled="disabled">Process</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-14 row" style="background-color: white;margin-left: 30px;">
+                        <br>
+                        <label><b>Accessibility</b></label>
+                        <br>
+                        <lable>
+                            <input type="checkbox" name="remote desktop" ng-model="overwriteAttrs.remotedesktop" ng-true-value="'Yes'" ng-false-value="'No'">&nbsp;Remote Desktop&nbsp;&nbsp;</lable>
+                        <lable>
+                            <input type="checkbox" name="Network" ng-model="overwriteAttrs.network" ng-true-value="'Yes'" ng-false-value="'No'">&nbsp;Network &nbsp;&nbsp;</lable>
+                        <lable>
+                            <input type="checkbox" name="Virtual machine" ng-model="overwriteAttrs.vm" ng-true-value="'Yes'" ng-false-value="'No'">&nbsp;Virtual Machine &nbsp;&nbsp;</lable>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="background-color:#919191;padding: 10px;">
+                <button type="button" class="btn btn-warning btn-sm" data-dismiss="modal" ng-click="addOverwriteFeature(overwriteAttrs)">Overwrite Feature</button>
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="newMem" role="dialoge" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:#919191;color:#FFF;font-weight: 400;padding: 9px;">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4>New Memory</h4>
+            </div>
+            <div class="modal-body col-md-12" style="background-color: white">
+                <div class="col-lg-10">
+                    <form class="form-horizontal" role="form" name="memoryForm" novalidate>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">Name:</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" name="name" placeholder="Name"  ng-model="mem.names" required="">
+                                <div ng-show="memoryForm.$submitted || memoryForm.name.$touched">
+                                    <div ng-show="memoryForm.name.$error.required" style="color: red;">Please enter valid Name.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">Description:</label>
+                            <div class="col-sm-7">
+                                <input name="description" type="text" class="form-control" name="description" placeholder="Description" ng-model="mem.Description" required="">
+                                <div ng-show="memoryForm.$submitted || memoryForm.description.$touched">
+                                    <div ng-show="memoryForm.description.$error.required" style="color: red;">Please Enter Description.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">Offset:</label>
+                            <div class="col-sm-7">
+                                <input type="number" onkeypress="return isNumberKey(event)" class="form-control" name="offset" placeholder="offset" ng-init="mem.offsets=8" ng-model="mem.offsets" ng-maxlength="2047" ng-minlength="0" ng-pattern=" /^\d+$/" required="">
+                                <div ng-show="memoryForm.$submitted || memoryForm.offset.$touched">
+                                    <div ng-show="memoryForm.offset.$error.required" style="color: red;">Please Enter Offset.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">Length(Bytes):</label>
+                            <div class="col-sm-7">
+                                <input name="length" type="number" onkeypress="return isNumberKey(event)" class="form-control"  ng-init="mem.lengths=30" ng-pattern=" /^\d+$/" placeholder="Length" ng-model="mem.lengths" ng-maxlength="2047" ng-minlength="0" required="">
+                                <div ng-show="memoryForm.$submitted || memoryForm.length.$touched">
+                                    <div ng-show="memoryForm.length.$error.required" style="color: red;">Please Enter Length.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">Text:</label>
+                            <div class="col-sm-7" ng-init="mem.texts='Read-Only Memory'">
+                                <input type="text" class="form-control" name="text" placeholder="Text" ng-minlength="0" ng-maxlength="2047" ng-model="mem.texts" required="">
+                                <div ng-show="memoryForm.$submitted || memoryForm.text.$touched">
+                                    <div ng-show="memoryForm.text.$error.required" style="color: red;">Please Enter Text.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="color">Color:</label>
+                            <div class="col-sm-7">
+                                <input class="color {hash:true} form-control" name="color" ng-init="mem.colors='#FFFFFF'" type="text" id="color" ng-model="mem.colors" required="">
+                                <div ng-show="memoryForm.$submitted || memoryForm.color.$touched">
+                                    <div ng-show="memoryForm.color.$error.required" style="color: red;">Please Enter Color.</div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="background-color: #919191;padding: 10px;">
+                <center>
+                    <input value="Submit" style="margin-top: 5px;" type="submit" class="btn btn-default btn-sm" ng-click="newMem(mem,memoryForm)" ng-disabled="memoryForm.$invalid">
+                </center>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="alert1" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header" style="font-weight: 300;padding: 7px;">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Error</h4>
+            </div>
+            <div class="modal-body" style="background-color: white">
+                <br>
+                {{result}}
+                <br>
+                <br>
+            </div>
+            <div class="modal-footer" style="font-weight: 300;padding: 5px;">
+                <button type="button" class="btn btn-default btn-xs" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- -- <div class="modal fade" id="editProvisional" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:#919191;color:#FFF;padding:10px;">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Edit Provisional Product</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row" style="margin-top: 10px;">
+                    <div class="col-md-10 col-sm-offset-1">
+                        <form class="form-horizontal ng-pristine ng-valid" name="myform_p">
+                            <table>
+                                <tr>
+                                    <td><label style="font-weight: 500">Base name :</label></td>
+                                    <td><span style="margin-left: 10px;"></span>
+                                        <label>{{editProvPrdct.name}}</label></td>
+                                </tr>
+                                <tr>
+                                    <td><label style="font-weight: 500">Product Name:</label></td>
+                                    <td><span style="margin-left: 10px;">
+                                        <input type="text" name="BaseProduct1" ng-maxlength="50" ng-minlength="1" ng-model="pro_BaseProduct" required=""></span>
+                                        <div ng-show="myform_p.$submitted || myform_p.BaseProduct1.$touched">
+                                            <div ng-show="myform_p.BaseProduct1.$error.required" style="color: red;">&nbsp;&nbsp;Provisional Product Name Required!</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td> <label style="font-weight: 500">Product ID :</label></td>
+                                    <td> &nbsp;&nbsp;&nbsp;{{editProvPrdct.ID}}</td>
+                                </tr>
+                                <tr>
+                                    <td> <label style="font-weight: 500">Locking Type :</label></td>
+                                    <td> &nbsp;&nbsp;&nbsp;{{editProvPrdct.enforcement_type}}</td>
+                                </tr>
+                            </table>
+                            <button class="btn btn-default btn-xs" style="margin-top: 5px;margin-bottom: 5px;" data-toggle="modal" data-target="#AddProvFeature">+Add More Features</button>
+                            <br>
+                            <table class="table table-bordered table-responsive table-condensed">
+                                <tr>
+                                    <th>Feature ID</th>
+                                    <th>Feature Name</th>
+                                    <th>License Terms</th>
+                                    <th>Actions</th>
+                                </tr>
+                                <tr ng-repeat="loop in provEditArr | itemsPerPage : 8">
+                                    <td>{{loop.featureID}}</td>
+                                    <td>{{loop.featureName}}</td>
+                                    <td>Provisional</td>
+                                    <td>
+                                        <button class="btn btn-default btn-xs glyphicon glyphicon-pencil" ng-click="editProv(loop.featureID)" data-toggle="modal" data-target="#provFeatEdit"></button>
+                                        <button class="btn btn-default btn-xs glyphicon glyphicon-trash" ng-click="delProv(loop.featureID)"></button>
+                                    </td>
+                                </tr>
+                            </table>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="background-color:#919191;padding: 10px;">
+                <button type="button" class="btn btn-warning btn-sm" ng-disabled="myform_p.$invalid" ng-click="addProvisionalProduct(provision[0]._id,provision[0].productName,provision[0].productID,provision[0].productLockingType, provision[0].memoryType,provision[0].memory, arrProv,myform_p)">Add Provisional</button>
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" ng-click="closeBtn(myform_p)">Close</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>  -->
+
+
+<footer style="position:fixed;bottom:0;width:100%;color:grey;">
+        <span style="text-align:center;color:grey;position:absolute;margin-bottom:1%;margin-left: 44%;">Copyright © 2015  Gemalto. All Rights Reserved.
+        </span>
+    <picture><span style="float:right;margin-right: 38px;"><img src="stylesheets/images/Gemalto.svg.png" alt="welcome to gemalto" width="100px"></span>
+    </picture>
+</footer>
+
+<script src="scripts/dependency/jquery.form.min.js"></script>
+<script src="scripts/dependency/jscolor.js"></script>
+<script src="scripts/dependency/jquery.min.js"></script>
+<script src="scripts/dependency/bootstrap.min.js"></script>
+<script src="scripts/dependency/jdataview.js"></script>
+<script src="scripts/dependency/jbinary.js"></script>
+<script src="scripts/dependency/holder.js"></script>
+<script src="scripts/dependency/ie10-viewport-bug-workaround.js"></script>
+<script src="scripts/dependency/jquery.json.min.js"></script>
+<script src="scripts/dependency/angular.min.js"></script>
+<script src="scripts/dependency/dirPagination.js"></script>
+<script src="scripts/controller/newProductController.js"></script>
+<script src="stylesheets/css/angular-animate.js"></script>
+</body>
+
+</html>
