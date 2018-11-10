@@ -11,7 +11,7 @@
     "mongojs": "^0.18.2",
     "monk": "^1.0.1",
     "querystring": "^0.2.0",
-    "restify": "4.0",
+    "restify": "4.1.0",
     "util": "^0.10.3"
   },
   "engines": {
